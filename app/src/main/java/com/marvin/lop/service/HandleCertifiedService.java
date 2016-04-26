@@ -12,10 +12,8 @@ import android.util.Log;
 import com.marvin.lop.bean.CertifiedUsers;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.receiver.HandleCertifiedReceiver;
-import com.marvin.lop.task.LoadingAuthenRequestTask;
 import com.marvin.lop.ui.HandleNewUserAuthenList;
 import com.marvin.lop.ui.PersonalCenterActivity;
-import com.marvin.lop.ui.linstener.OnDataLoadSuccessLinstener;
 import com.marvin.lop.utils.QueryFromServer;
 import com.marvin.lop.utils.ShowNotification;
 
@@ -125,20 +123,6 @@ public class HandleCertifiedService extends Service {
                                                 ShowNotification.handleNotification(HandleCertifiedService.this,
                                                         "班长请求认证", "请求认证数量" + num,
                                                         "班长请求认证", HandleNewUserAuthenList.class);
-
-
-                                                // 使用异步加载去获取服务器数据
-//                                                LoadingAuthenRequestTask loadAuthenRequestTask = new LoadingAuthenRequestTask(HandleCertifiedService.this);
-//                                                loadAuthenRequestTask.setOnDataLoadSuccessLinstener(new OnDataLoadSuccessLinstener() {
-//                                                    @Override
-//                                                    public void onSuccess(Boolean isSuccess) {
-//                                                        if (isSuccess) {
-//
-//                                                        }
-//                                                    }
-//                                                });
-//                                                loadAuthenRequestTask.execute();
-
                                             } else {
                                                 Log.i(TAG, "没有用户请求认证");
                                             }
@@ -164,23 +148,6 @@ public class HandleCertifiedService extends Service {
                                                 ShowNotification.handleNotification(HandleCertifiedService.this,
                                                         "学生请求认证", "请求认证数量" + num1,
                                                         "学生请求认证", HandleNewUserAuthenList.class);
-
-
-
-
-
-                                                // 使用异步加载去获取服务器数据
-//                                                LoadingAuthenRequestTask loadAuthenRequestTask = new LoadingAuthenRequestTask(HandleCertifiedService.this);
-//                                                loadAuthenRequestTask.setOnDataLoadSuccessLinstener(new OnDataLoadSuccessLinstener() {
-//                                                    @Override
-//                                                    public void onSuccess(Boolean isSuccess) {
-//                                                        if (isSuccess) {
-//
-//                                                        }
-//
-//                                                    }
-//                                                });
-//                                                loadAuthenRequestTask.execute();
                                             } else {
                                                 Log.i(TAG, "没有用户请求认证");
                                             }
