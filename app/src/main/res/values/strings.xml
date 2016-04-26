@@ -160,9 +160,9 @@
     <string name="register_info_email">电子邮箱:</string>
     <string name="real_name_authen_commit_button">提交</string>
     <string-array name="permission">
-        <item>认证用户-管理员</item>
-        <item>认证用户-班长</item>
-        <item>认证用户-学生</item>
+        <item>管理员</item>
+        <item>班长</item>
+        <item>学生</item>
         <item>注册用户</item>
         <item>游客</item>
     </string-array>

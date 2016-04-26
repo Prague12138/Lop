@@ -124,11 +124,11 @@ public class CodeMatcher {
      */
     public static Integer PermissionCodeMatcher(String permissionName) {
         switch (permissionName) {
-            case "认证用户-管理员":
+            case "管理员":
                 return Constants.UserPermission.USER_PERMISSION_ADMIN;
-            case "认证用户-班长":
+            case "班长":
                 return Constants.UserPermission.USER_PERMISSION_MONITOR;
-            case "认证用户-学生":
+            case "学生":
                 return Constants.UserPermission.USER_PERMISSION_STUDENT;
             case "注册用户":
                 return Constants.UserPermission.USER_PERMISSION_REGISTER_PHONE;
@@ -149,11 +149,11 @@ public class CodeMatcher {
     public static String PermissionCodeMatcher(Integer permissionCode) {
         switch (permissionCode) {
             case Constants.UserPermission.USER_PERMISSION_ADMIN:
-                return "认证用户-管理员";
+                return "管理员";
             case Constants.UserPermission.USER_PERMISSION_MONITOR:
-                return "认证用户-班长";
+                return "班长";
             case Constants.UserPermission.USER_PERMISSION_STUDENT:
-                return "认证用户-学生";
+                return "学生";
             case Constants.UserPermission.USER_PERMISSION_REGISTER_PHONE:
                 return "注册用户";
             case Constants.UserPermission.USRE_PERMISSION_VISTOR:

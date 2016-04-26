@@ -16,9 +16,7 @@ import com.marvin.lop.R;
 import com.marvin.lop.adapter.HandleCertifiedCursorAdapter;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.database.AuthenRequestDataBaseHelper;
-import com.marvin.lop.task.LoadingAuthenRequestTask;
 import com.marvin.lop.ui.base.BaseActivity;
-import com.marvin.lop.ui.linstener.OnDataLoadSuccessLinstener;
 
 /**
  * Created by Marvin on 2016/4/16.
@@ -70,8 +68,16 @@ public class HandleNewUserAuthenList extends BaseActivity {
 
     @Override
     protected void initView() {
-        Log.i(TAG, "使用异步加载去获取服务器的数据");
+        mBack_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 返回到Personal界面
+                setResult(Constants.IntentResultCode.HandleAuthenList2Personal);
+                HandleNewUserAuthenList.this.finish();
+            }
+        });
 
+        Log.i(TAG, "使用异步加载去获取服务器的数据");
         // 初始化数据库
         openHelper = new AuthenRequestDataBaseHelper(HandleNewUserAuthenList.this,
                 Constants.AuthenRequestDataBaseConfig.DataBaseName, null, 1);

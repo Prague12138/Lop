@@ -429,6 +429,11 @@ public final class Constants {
          * 从处理界面返回到List界面响应码
          */
         public static final int AuthenHandleBackToAuthenList = 0x300B;
+        /**
+         * 从认证请求处理列表返回到Personal界面
+         */
+        public static final int HandleAuthenList2Personal = 0x300C;
+
     }
 
     /**

@@ -37,8 +37,7 @@
             style="@style/PersonalTopStyle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:onClick="true"
-            >
+            android:onClick="true">
 
             <ImageView
                 android:id="@+id/personal_center_real_name_authen_imageview"

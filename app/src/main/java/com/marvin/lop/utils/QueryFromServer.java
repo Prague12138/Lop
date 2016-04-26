@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.marvin.lop.adapter.HandleCertifiedAdapter;
 import com.marvin.lop.bean.AuthenRequestList;
 import com.marvin.lop.bean.BeanConstants;
 import com.marvin.lop.bean.CertifiedUsers;
@@ -32,8 +31,6 @@ public class QueryFromServer {
     private static final String TAG = QueryFromServer.class.getSimpleName();
 
     private List<AuthenRequestList> listItems;
-
-
 
     /**
      * 管理员权限的用户根据权限查询请求认证的用户数据并存储在本地数据库中
@@ -64,7 +61,7 @@ public class QueryFromServer {
             @Override
             public void onSuccess(List<CertifiedUsers> list) {
                 // 创建本地数据库表用来保存数据，如果该表已经存在，就检查是否为空
-                //如果不为空，就在写入的时候检查objectid是否有相同的，有相同的就不写入，
+                // 如果不为空，就在写入的时候检查objectid是否有相同的，有相同的就不写入，
                 // 不同的才写入，保证数据库中的数据不重复，数据库直接映射到ListView上，如果
                 // 该条认证请求通过，就将这条数据从数据库中删除并提交给服务器进行修改
                 AuthenRequestDataBaseHelper dbHelper = new AuthenRequestDataBaseHelper(context,
@@ -96,7 +93,7 @@ public class QueryFromServer {
                         String objectid = user.getObjectId();
                         Cursor c = db.rawQuery("select " + Constants.AuthenRequestDataBaseConfig.ObjectID +
                                 " from " + Constants.AuthenRequestDataBaseConfig.TableName + " where "
-                        + Constants.AuthenRequestDataBaseConfig.ObjectID + "='" + objectid + "'", null);
+                                + Constants.AuthenRequestDataBaseConfig.ObjectID + "='" + objectid + "'", null);
                         if (c.getCount() < 1) {
                             Log.i(TAG, "该数据不存在数据库中，可以插入");
                             values.put(Constants.AuthenRequestDataBaseConfig.PhoneNumber, user.getUserPhoneNumber());
@@ -161,23 +158,61 @@ public class QueryFromServer {
         query.findObjects(context, new FindListener<CertifiedUsers>() {
             @Override
             public void onSuccess(List<CertifiedUsers> list) {
-                listItems = new ArrayList<>();
-                // 把获取的数据存入List中
-                AuthenRequestList authen;
-                for (CertifiedUsers user : list) {
-                    authen = new AuthenRequestList();
-                    authen.setUserPhoneNumber(user.getUserPhoneNumber());
-                    authen.setUserClass(user.getUserClass());
-                    authen.setUserCollege(user.getUserCollege());
-                    authen.setUserEmailAddress(user.getUserEmailAddress());
-                    authen.setUserRealName(user.getUserRealName());
-                    authen.setUserPermission(user.getUserPermission());
-                    authen.setUserStudentId(user.getUserStudentId());
-                    authen.setObjectId(user.getObjectId());
-                    listItems.add(authen);
-                    HandleCertifiedAdapter hca = new HandleCertifiedAdapter(context);
-                    hca.setListItems(listItems);
+                // 创建本地数据库表用来保存数据，如果该表已经存在，就检查是否为空
+                // 如果不为空，就在写入的时候检查objectid是否有相同的，有相同的就不写入，
+                // 不同的才写入，保证数据库中的数据不重复，数据库直接映射到ListView上，如果
+                // 该条认证请求通过，就将这条数据从数据库中删除并提交给服务器进行修改
+                AuthenRequestDataBaseHelper dbHelper = new AuthenRequestDataBaseHelper(context,
+                        Constants.AuthenRequestDataBaseConfig.DataBaseName, null, 1);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                Cursor cursor = db.rawQuery("select * from " + Constants.AuthenRequestDataBaseConfig.TableName, null);
+                if (cursor.getCount() < 1) {
+                    Log.i(TAG, "数据库为空");
+                    for (CertifiedUsers user :list) {
+                        Log.i(TAG, "数据库为空，直接写入数据");
+                        Log.i(TAG, "QueryData获取用户数据的大小:" + list.size());
+                        values.put(Constants.AuthenRequestDataBaseConfig.PhoneNumber, user.getUserPhoneNumber());
+                        values.put(Constants.AuthenRequestDataBaseConfig.Class, user.getUserClass());
+                        values.put(Constants.AuthenRequestDataBaseConfig.College, user.getUserCollege());
+                        values.put(Constants.AuthenRequestDataBaseConfig.EmailAddress, user.getUserEmailAddress());
+                        values.put(Constants.AuthenRequestDataBaseConfig.RealName, user.getUserRealName());
+                        values.put(Constants.AuthenRequestDataBaseConfig.Permission, user.getUserPermission());
+                        values.put(Constants.AuthenRequestDataBaseConfig.StudentID, user.getUserStudentId());
+                        values.put(Constants.AuthenRequestDataBaseConfig.ObjectID, user.getObjectId());
+                        db.insert(Constants.AuthenRequestDataBaseConfig.TableName, null, values);// 插入数据
+                        values.clear();//清空
+                    }
+                } else {
+                    //如果数据库不为空，就要把服务器请求来的数据跟数据库中的数据的ObjectId进行比较，重复就不再添加，不存在就添加
+                    Log.i(TAG, "数据库不为空");
+                    for (CertifiedUsers user : list) {
+                        Log.i(TAG, "QueryData获取用户数据的大小:" + list.size());
+                        String objectid = user.getObjectId();
+                        Cursor c = db.rawQuery("select " + Constants.AuthenRequestDataBaseConfig.ObjectID +
+                                " from " + Constants.AuthenRequestDataBaseConfig.TableName + " where "
+                                + Constants.AuthenRequestDataBaseConfig.ObjectID + "='" + objectid + "'", null);
+                        if (c.getCount() < 1) {
+                            Log.i(TAG, "该数据不存在数据库中，可以插入");
+                            values.put(Constants.AuthenRequestDataBaseConfig.PhoneNumber, user.getUserPhoneNumber());
+                            values.put(Constants.AuthenRequestDataBaseConfig.Class, user.getUserClass());
+                            values.put(Constants.AuthenRequestDataBaseConfig.College, user.getUserCollege());
+                            values.put(Constants.AuthenRequestDataBaseConfig.EmailAddress, user.getUserEmailAddress());
+                            values.put(Constants.AuthenRequestDataBaseConfig.RealName, user.getUserRealName());
+                            values.put(Constants.AuthenRequestDataBaseConfig.Permission, user.getUserPermission());
+                            values.put(Constants.AuthenRequestDataBaseConfig.StudentID, user.getUserStudentId());
+                            values.put(Constants.AuthenRequestDataBaseConfig.ObjectID, user.getObjectId());
+                            db.insert(Constants.AuthenRequestDataBaseConfig.TableName, null, values);// 插入数据
+                            values.clear();//清空
+                        } else {
+                            Log.i(TAG, "该数据已经存在数据库中，不能插入");
+                        }
+                        c.close();
+                    }
                 }
+                cursor.close();
+                db.close();
+                dbHelper.close();
             }
 
             @Override
@@ -387,6 +422,7 @@ public class QueryFromServer {
 
     /**
      * 根据当前登录用户的ObjectID来获取服务器端认证的身份权限
+     *
      * @param context
      * @param objectId
      */

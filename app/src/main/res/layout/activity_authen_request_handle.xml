@@ -30,24 +30,27 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@drawable/android_layout_bg">
 
         <LinearLayout
+            style="@style/PersonalMainLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-
             <LinearLayout
+                style="@style/PersonalTopStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -57,19 +60,24 @@
 
                 <TextView
                     android:id="@+id/authen_request_handle_name"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
+
             <LinearLayout
+                style="@style/PersonalNormalStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -79,19 +87,24 @@
 
                 <TextView
                     android:id="@+id/authen_request_handle_studentid"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
+
             <LinearLayout
+                style="@style/PersonalNormalStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -101,19 +114,24 @@
 
                 <TextView
                     android:id="@+id/authen_request_handle_class"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
+
             <LinearLayout
+                style="@style/PersonalNormalStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -123,56 +141,68 @@
 
                 <TextView
                     android:id="@+id/authen_request_handle_college"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
+
             <LinearLayout
+                style="@style/PersonalNormalStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textAlignment="center"
                     android:text="@string/authen_request_handle_permission"
+                    android:textAlignment="center"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/authen_request_handle_permission"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
+
             <LinearLayout
+                style="@style/PersonalBottomStyle"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/PersonalTextStyle"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textAlignment="center"
                     android:text="@string/authen_request_handle_email"
+                    android:textAlignment="center"
                     android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/authen_request_handle_email"
+                    style="@style/PersonalTextStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:textSize="20sp" />
             </LinearLayout>
 
+            <View style="@style/PersonalLine" />
 
             <Button
                 android:id="@+id/authen_request_handle_confirm"
@@ -187,7 +217,6 @@
                 android:text="@string/authen_confirm"
                 android:textColor="#fff"
                 android:textSize="20sp" />
-
 
         </LinearLayout>
     </ScrollView>

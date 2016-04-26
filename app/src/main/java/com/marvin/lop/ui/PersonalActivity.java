@@ -154,6 +154,15 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
                 default:
                     break;
             }
+        } else {
+            switch (resultCode) {
+                case Constants.IntentResultCode.HandleAuthenList2Personal:
+                    // 从认证处理列表返回到个人界面
+                    switchLoginState(sharedPreferences.getBoolean(Constants.SharedPreferencesConfig.USER_LOGIN_STATE, false));
+                    break;
+                default:
+                    break;
+            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

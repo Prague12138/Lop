@@ -16,6 +16,7 @@ import com.marvin.lop.bean.CertifiedUsers;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.database.AuthenRequestDataBaseHelper;
 import com.marvin.lop.ui.base.BaseActivity;
+import com.marvin.lop.utils.CodeMatcher;
 
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -93,11 +94,25 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
                 if (cursor.moveToFirst()) {
                     objectId = cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.ObjectID));
                     userName_tv.setText(cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.RealName)));
+
                     userStudentID_tv.setText(cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.StudentID)));
                     userClass_tv.setText(cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.Class)));
-                    userCollege_tv.setText(cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.College)));
-                    userPermission_tv.setText(cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.Permission)));
-                    userEmail_tv.setText(cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.EmailAddress)));
+                    // 根据数据库中存储的学院编号，找到对应的学院名称，将学院名称显示在界面上
+                    int collegenum = cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.College));
+                    Log.i(TAG, "collegenum = " + collegenum);
+                    String collegename = CodeMatcher.CollegeCodeMatcher(collegenum);
+                    Log.i(TAG, "collegename = " + collegename);
+                    userCollege_tv.setText(collegename);
+                    // 根据数据库中存储的身份编号，找到对应的身份名称，将身份名称显示在界面上
+                    int permissionnum = cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.Permission));
+                    Log.i(TAG, "permissionnum = " + permissionnum);
+                    String permissionname = CodeMatcher.PermissionCodeMatcher(permissionnum);
+                    Log.i(TAG, "permissionname = " + permissionname);
+                    userPermission_tv.setText(permissionname);
+                    // 查看数据库中存储的邮箱
+                    String mail = cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.EmailAddress));
+                    Log.i(TAG, "mail = " + mail);
+                    userEmail_tv.setText(mail);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -124,7 +139,6 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
                     @Override
                     public void onSuccess() {
                         Log.i(TAG, "用户" + objectId + " 认证成功");
-
                     }
 
                     @Override
