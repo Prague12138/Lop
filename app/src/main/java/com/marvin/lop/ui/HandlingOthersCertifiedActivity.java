@@ -53,7 +53,7 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authen_request_handle);
-        Log.i(TAG, "显示handlingOthersCertifiedActivity界面");
+//        Log.i(TAG, "显示handlingOthersCertifiedActivity界面");
         findViewById();
         initView();
     }
@@ -85,8 +85,8 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
                 openHelper = new AuthenRequestDataBaseHelper(HandlingOthersCertifiedActivity.this,
                         Constants.AuthenRequestDataBaseConfig.DataBaseName, null, 1);
                 database = openHelper.getWritableDatabase();
-                Log.i(TAG, "Query语句:" + "select * from " + Constants.AuthenRequestDataBaseConfig.TableName +
-                        " where _id=" + id);
+//                Log.i(TAG, "Query语句:" + "select * from " + Constants.AuthenRequestDataBaseConfig.TableName +
+//                        " where _id=" + id);
                 cursor = database.rawQuery("select * from " + Constants.AuthenRequestDataBaseConfig.TableName +
                         " where _id=" + id, null);
                 // android中数据库处理使用cursor时，游标不是放在为0的下标，而是放在为-1的下标处开始的。

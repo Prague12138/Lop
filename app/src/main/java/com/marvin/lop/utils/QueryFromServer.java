@@ -12,6 +12,7 @@ import com.marvin.lop.bean.BeanConstants;
 import com.marvin.lop.bean.CertifiedUsers;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.database.AuthenRequestDataBaseHelper;
+import com.marvin.lop.database.GetUserCertifiedInfoDataBaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +30,6 @@ import cn.bmob.v3.listener.GetListener;
 public class QueryFromServer {
 
     private static final String TAG = QueryFromServer.class.getSimpleName();
-
-    private List<AuthenRequestList> listItems;
 
     /**
      * 管理员权限的用户根据权限查询请求认证的用户数据并存储在本地数据库中
@@ -451,5 +450,71 @@ public class QueryFromServer {
         } else {
             Log.i(TAG, "用户的ObjectID为空");
         }
+    }
+
+    /**
+     * 根据传入的ObjectID来获取当前登录用户的认证信息并保存在数据库中
+     * @param context 上下文
+     * @param objectId 用户ID
+     */
+    public void getUserCertifiedInfo(final Context context, String objectId) {
+        // 查询objectID为当前id的用户
+        BmobQuery<CertifiedUsers> query = new BmobQuery<>();
+        query.getObject(context, objectId, new GetListener<CertifiedUsers>() {
+            @Override
+            public void onSuccess(CertifiedUsers certifiedUsers) {
+                Log.i(TAG, "获取用户认证信息成功");
+                // 创建本地数据库表用来保存用户的认证信息,如果该表存在，就检查是否为空
+                // 如果不为空，就在写入数据的时候检查ObjectID是否相同，有不相同的就写入
+                GetUserCertifiedInfoDataBaseHelper dbHelper = new GetUserCertifiedInfoDataBaseHelper(context,
+                        Constants.UserCertifiedInfoDataConfig.DataBaseName, null, 1);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                Cursor cursor = db.rawQuery("select * from " + Constants.UserCertifiedInfoDataConfig.TableName, null);
+                if (cursor.getCount() < 1) {
+                    Log.i(TAG, "数据库为空，直接写入数据");
+                    values.put(Constants.UserCertifiedInfoDataConfig.PhoneNumber, certifiedUsers.getUserPhoneNumber());
+                    values.put(Constants.UserCertifiedInfoDataConfig.Class, certifiedUsers.getUserClass());
+                    values.put(Constants.UserCertifiedInfoDataConfig.College, certifiedUsers.getUserCollege());
+                    values.put(Constants.UserCertifiedInfoDataConfig.EmailAddress, certifiedUsers.getUserEmailAddress());
+                    values.put(Constants.UserCertifiedInfoDataConfig.RealName, certifiedUsers.getUserRealName());
+                    values.put(Constants.UserCertifiedInfoDataConfig.Permission, certifiedUsers.getUserPermission());
+                    values.put(Constants.UserCertifiedInfoDataConfig.StudentID, certifiedUsers.getUserStudentId());
+                    values.put(Constants.UserCertifiedInfoDataConfig.ObjectID, certifiedUsers.getObjectId());
+                    db.insert(Constants.UserCertifiedInfoDataConfig.TableName, null, values);// 插入数据
+                    values.clear();// 清空
+                } else {
+                    Log.i(TAG, "数据库不为空");
+                    String objectId = certifiedUsers.getObjectId();
+                    Cursor c = db.rawQuery("select " + Constants.UserCertifiedInfoDataConfig.ObjectID +
+                            " from " + Constants.UserCertifiedInfoDataConfig.TableName + " where "
+                            + Constants.UserCertifiedInfoDataConfig.ObjectID + "='" + objectId + "'", null);
+                    if (c.getCount() < 1) {
+                        Log.i(TAG, "该数据不存在，可以插入");
+                        values.put(Constants.UserCertifiedInfoDataConfig.PhoneNumber, certifiedUsers.getUserPhoneNumber());
+                        values.put(Constants.UserCertifiedInfoDataConfig.Class, certifiedUsers.getUserClass());
+                        values.put(Constants.UserCertifiedInfoDataConfig.College, certifiedUsers.getUserCollege());
+                        values.put(Constants.UserCertifiedInfoDataConfig.EmailAddress, certifiedUsers.getUserEmailAddress());
+                        values.put(Constants.UserCertifiedInfoDataConfig.RealName, certifiedUsers.getUserRealName());
+                        values.put(Constants.UserCertifiedInfoDataConfig.Permission, certifiedUsers.getUserPermission());
+                        values.put(Constants.UserCertifiedInfoDataConfig.StudentID, certifiedUsers.getUserStudentId());
+                        values.put(Constants.UserCertifiedInfoDataConfig.ObjectID, certifiedUsers.getObjectId());
+                        db.insert(Constants.UserCertifiedInfoDataConfig.TableName, null, values);// 插入数据
+                        values.clear();// 清空
+                    } else {
+                        Log.i(TAG, "该数据已经存在数据库中，不能插入");
+                    }
+                    c.close();
+                }
+                cursor.close();
+                db.close();
+                dbHelper.close();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+
+            }
+        });
     }
 }

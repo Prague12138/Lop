@@ -80,9 +80,21 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                 PersonalCenterActivity.this.finish();
                 break;
             case R.id.personal_center_relative_layout_click:
-                // 进入认证界面
-                Intent mIntent = new Intent(PersonalCenterActivity.this, RealNameAuthenActivity.class);
-                startActivityForResult(mIntent, Constants.IntentRequestCode.IN_REAL_NAME_AUTHEN);
+                String progress = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_AUTHEN_PROGRESS, null);
+                if (progress != null) {
+                    if (progress.equals(Constants.UserAuthenState.CERTIFIED)) {
+                        // 进入用户认证信息显示界面
+                        Intent showIntent = new Intent(PersonalCenterActivity.this, ShowCertifiedInfoActivity.class);
+                        startActivityForResult(showIntent, Constants.IntentRequestCode.PersonalCenter2ShowCertifiedInfo);
+                    } else if (progress.equals(Constants.UserAuthenState.BEING_CERTIFIED)){
+                        DisPlay("正在等待认证...");
+                    } else if (progress.equals(Constants.UserAuthenState.UNAUTHORIZED)) {
+                        // 进入认证界面
+                        Intent mIntent = new Intent(PersonalCenterActivity.this, RealNameAuthenActivity.class);
+                        startActivityForResult(mIntent, Constants.IntentRequestCode.IN_REAL_NAME_AUTHEN);
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -95,6 +107,14 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                 case Constants.IntentResultCode.Authen2PersonalCenter://在认证界面点返回按钮返回到个人信息中心界面
                     break;
                 case Constants.IntentResultCode.AuthenCommitButton://在认证界面点击提交按钮后返回该界面
+                    break;
+                default:
+                    break;
+            }
+        } else if (requestCode == Constants.IntentRequestCode.PersonalCenter2ShowCertifiedInfo) {
+            switch (resultCode) {
+                case Constants.IntentResultCode.ShowCertifiedInfo2PersonalCenter:
+                    // 从显示认证信息界面返回到个人中心界面
                     break;
                 default:
                     break;

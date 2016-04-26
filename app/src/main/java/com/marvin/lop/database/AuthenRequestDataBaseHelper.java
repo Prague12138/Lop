@@ -17,7 +17,6 @@ public class AuthenRequestDataBaseHelper extends SQLiteOpenHelper {
 
     private static final String TAG = AuthenRequestDataBaseHelper.class.getSimpleName();
 
-
     // 创建存储用户认证信息的表
     public static final String CREATE_AuthenRequestUserData_TABLE =
             "create table if not exists "+ Constants.AuthenRequestDataBaseConfig.TableName +"(_id integer primary key autoincrement," +

@@ -76,7 +76,7 @@ public class HandleCertifiedService extends Service {
                                 // 将服务器端的认证进度改为Certified
                                 CertifiedUsers certifiedUsers = new CertifiedUsers();
                                 certifiedUsers.setUserAuthenProgress(Constants.UserAuthenState.CERTIFIED);
-                                certifiedUsers.update(HandleCertifiedService.this, sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null),
+                                certifiedUsers.update(HandleCertifiedService.this, userObjectId,
                                         new UpdateListener() {
                                             @Override
                                             public void onSuccess() {
@@ -88,6 +88,8 @@ public class HandleCertifiedService extends Service {
                                                 Log.i(TAG, "服务器端认证进度更新失败" + s);
                                             }
                                         });
+                                // 根据用户ID从服务器获取用户认证信息
+                                new QueryFromServer().getUserCertifiedInfo(HandleCertifiedService.this, userObjectId);
                                 // 给用户发送一条通知消息，通知用户已经通过认证
                                 ShowNotification.handleNotification(HandleCertifiedService.this,
                                         "杂货铺子认证结果", "你已经通过实名认证！", "杂货铺子认证结果", PersonalCenterActivity.class);
@@ -96,6 +98,8 @@ public class HandleCertifiedService extends Service {
                             }
                             break;
                         case Constants.UserAuthenState.CERTIFIED:
+                            // 根据用户ID从服务器获取用户认证信息
+                            new QueryFromServer().getUserCertifiedInfo(HandleCertifiedService.this, userObjectId);
                             Log.i(TAG, "通过认证Certified,正在查询其他用户的认证请求...");
                             // 如果用户已经登录并且也通过了认证，就从根据自己的权限从服务器查询是否有新的用户
                             // 需要自己验证,弹出一个通知栏，通知栏显示有多少条认证请求，然后用户点击通知栏

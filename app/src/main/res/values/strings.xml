@@ -188,6 +188,9 @@
         <item>中北大学朔州校区</item>
     </string-array>
 
+    <!--显示已经通过认证认证的个人信息-->
+    <string name="show_certified_info_title">认证信息</string>
+
     <!--处理请求认证ListView界面Item-->
     <string name="listview_adapter_authen_request_studentid">学号：</string>
     <string name="listview_adapter_authen_request_name">姓名：</string>

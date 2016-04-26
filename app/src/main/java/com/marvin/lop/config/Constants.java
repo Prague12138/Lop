@@ -378,6 +378,10 @@ public final class Constants {
          * 从认证请求列表跳转到认证处理界面的请求码
          */
         public static final int AuthenHandleList2HandleActivity = 0x2004;
+        /**
+         * 从个人中心界面跳转到用户认证信息显示界面
+         */
+        public static final int PersonalCenter2ShowCertifiedInfo = 0x2005;
     }
 
     /**
@@ -433,6 +437,10 @@ public final class Constants {
          * 从认证请求处理列表返回到Personal界面
          */
         public static final int HandleAuthenList2Personal = 0x300C;
+        /**
+         * 从显示认证用户信息的界面返回用户个人中心
+         */
+        public static final int ShowCertifiedInfo2PersonalCenter = 0x300D;
 
     }
 
@@ -496,4 +504,56 @@ public final class Constants {
          */
         public static final String ObjectID = "userObjectId";
     }
+
+    /**
+     * 认证用户信息数据库
+     */
+    public static final class UserCertifiedInfoDataConfig {
+        /**
+         *  数据库名称
+         */
+        public static final String DataBaseName = "UserCertifiedInfoDataBase.db";
+        /**
+         *  表名
+         */
+        public static final String TableName = "CertifiedInfoData";
+        /**
+         * _id
+         */
+        public static final String ID = "_id";
+        /**
+         * 字段--用户手机号
+         */
+        public static final String PhoneNumber = "userPhoneNumber";
+        /**
+         * 字段--用户权限
+         */
+        public static final String Permission = "userPermission";
+        /**
+         * 字段--学院
+         */
+        public static final String College = "userCollege";
+        /**
+         * 字段--班级
+         */
+        public static final String Class = "userClass";
+        /**
+         * 字段--学号
+         */
+        public static final String StudentID = "userStudentID";
+        /**
+         * 字段--姓名
+         */
+        public static final String RealName = "userRealName";
+        /**
+         * 字段--邮箱
+         */
+        public static final String EmailAddress = "userEmailAddress";
+        /**
+         * 字段--ObjectId
+         */
+        public static final String ObjectID = "userObjectId";
+    }
+
+
 }
