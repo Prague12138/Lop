@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android_layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/android_title_bg"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/personal_center_back_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/left_back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="@string/personal_center_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/PersonalMainLayoutStyle">
+
+        <RelativeLayout
+            android:id="@+id/personal_center_relative_layout_click"
+            style="@style/PersonalTopStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="true"
+            >
+
+            <ImageView
+                android:id="@+id/personal_center_real_name_authen_imageview"
+                style="@style/PersonalIconStyle"
+                android:layout_width="36dp"
+                android:layout_height="38dp"
+                android:src="@drawable/personal_center_authen_icon" />
+
+            <TextView
+                style="@style/PersonalTextStyle"
+                android:layout_toRightOf="@id/personal_center_real_name_authen_imageview"
+                android:text="@string/personal_center_real_name_authen_textview_msg" />
+
+            <ImageButton
+                android:id="@+id/personal_center_real_name_authen_imgbtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/android_list_idex" />
+
+            <!--未认证-->
+            <TextView
+                android:id="@+id/personal_center_real_name_authen_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/personal_center_real_name_authen_imgbtn"
+                android:text="@string/personal_center_real_name_authen_no_msg"
+                android:textColor="@color/dimgrey"
+                android:visibility="visible" />
+
+            <!--正在验证-->
+            <TextView
+                android:id="@+id/personal_center_real_name_authen_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/personal_center_real_name_authen_imgbtn"
+                android:text="@string/personal_center_real_name_authen_continue_msg"
+                android:textColor="@color/dimgrey"
+                android:visibility="gone" />
+
+            <!--已认证-->
+            <TextView
+                android:id="@+id/personal_center_real_name_authen_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/personal_center_real_name_authen_imgbtn"
+                android:text="@string/personal_center_real_name_authen_yes_msg"
+                android:textColor="@color/dimgrey"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View style="@style/PersonalLine" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/personal_center_signout_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/android_title_bg"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="@string/personal_center_signout_msg"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+</LinearLayout>

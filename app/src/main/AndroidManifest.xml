@@ -1,0 +1,125 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.marvin.lop">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/small_logo_blue_72x72"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ui.SplashActivity"
+            android:label="@string/app_name"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.HomeActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.CategoryActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.CartActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.PersonalActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.SearchActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.LoginActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:name=".ui.FastRegisterActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.AuthenPhoneNumberActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.SetPasswordActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.PersonalCenterActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.RealNameAuthenActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.MoreActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexShakeActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexClothingActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexDigtalActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexDaily"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.IndexEbookActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".zxing.CaptureActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".zxing.CaptureResultActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.HandleNewUserAuthenList"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.HandlingOthersCertifiedActivity"
+            android:theme="@style/AppTheme" />
+
+        <!--服务-->
+        <service android:name=".service.HandleCertifiedService" />
+
+
+        <!--Receiver-->
+        <receiver android:name=".receiver.HandleCertifiedReceiver" />
+
+    </application>
+
+
+</manifest>

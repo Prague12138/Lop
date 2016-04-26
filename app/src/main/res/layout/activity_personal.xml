@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/personal_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android_layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/personal_top_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/android_title_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="@string/personal_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/medium_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/personal_background_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/my_personal_not_login_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+
+            <!--登录前-->
+            <LinearLayout
+                android:id="@+id/personal_islogin_none"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/personal_welcome"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/medium_text_size" />
+
+                <Button
+                    android:id="@+id/personal_login_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/my_personal_click_login"
+                    android:gravity="center"
+                    android:text="@string/personal_login"
+                    android:textColor="@color/login_button"
+                    android:textSize="@dimen/small_text_size"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!--登陆后-->
+            <LinearLayout
+                android:id="@+id/personal_islogin_yes"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:id="@+id/personal_user_icon_imgbtn"
+                    style="style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/nohead" />
+
+                <TextView
+                    android:id="@+id/personal_username_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/medium_text_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/personal_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/android_layout_bg"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/PersonalCenterText"
+                android:text="@string/personal_order_center" />
+
+            <LinearLayout style="@style/PersonalMainLayoutStyle">
+
+                <RelativeLayout style="@style/PersonalTopStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_01"
+                        style="@style/PersonalIconStyle"
+                        android:layout_width="36dp"
+                        android:layout_height="38dp"
+                        android:src="@drawable/android_personel_quickly_order" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_01"
+                        android:text="@string/personal_fast_search" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalNormalStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_02"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_personel_waitpay_order" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_02"
+                        android:text="@string/personal_wait_pay" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalBottomStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_03"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_personel_all_order" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_03"
+                        android:text="@string/personal_all_order" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/PersonalCenterText"
+                android:text="@string/personal_account_center" />
+
+            <LinearLayout style="@style/PersonalMainLayoutStyle">
+
+                <RelativeLayout style="@style/PersonalTopStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_04"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/personal_my_interst_icon" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_04"
+                        android:text="@string/personal_my_focus" />
+
+                    <ImageButton
+                        android:id="@+id/personal_my_interst_imgbtn"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="32dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalNormalStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_05"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_my_jd_discuss" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_05"
+                        android:text="@string/personal_comment" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalBottomStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_06"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_my_jd_messages" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_06"
+                        android:text="@string/personal_information" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalBottomStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_07"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_my_easy_buy" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_07"
+                        android:text="@string/personal_quick_buy" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout style="@style/PersonalBottomStyle">
+
+                    <ImageView
+                        android:id="@+id/personal_icon_08"
+                        style="@style/PersonalIconStyle"
+                        android:src="@drawable/android_my_jd_account_safe" />
+
+                    <TextView
+                        style="@style/PersonalTextStyle"
+                        android:layout_toRightOf="@id/personal_icon_08"
+                        android:text="@string/personal_account" />
+
+                    <ImageView
+                        style="@style/PersonalRightIconStyle"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/personal_exit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/android_title_bg"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/personal_quit"
+                android:textColor="#fff"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>
