@@ -382,6 +382,60 @@ public final class Constants {
          * 从个人中心界面跳转到用户认证信息显示界面
          */
         public static final int PersonalCenter2ShowCertifiedInfo = 0x2005;
+        /**
+         * 从个人中心界面跳转到物品发布界面
+         */
+        public static final int PersonalCenter2Publish = 0x2006;
+        /**
+         * 启动拍照程序01
+         */
+        public static final int TakePicture01 = 0x2007;
+        /**
+         * 启动裁剪程序01
+         */
+        public static final int CropPicture01 = 0x2008;
+        /**
+         * 启动拍照程序02
+         */
+        public static final int TakePicture02 = 0x2009;
+        /**
+         * 启动裁剪程序02
+         */
+        public static final int CropPicture02 = 0x200A;
+        /**
+         * 启动拍照程序03
+         */
+        public static final int TakePicture03 = 0x200B;
+        /**
+         * 启动裁剪程序03
+         */
+        public static final int CropPicture03 = 0x200C;
+        /**
+         * 启动拍照程序04
+         */
+        public static final int TakePicture04 = 0x200D;
+        /**
+         * 启动裁剪程序04
+         */
+        public static final int CropPicture04 = 0x200E;
+        /**
+         * 启动拍照程序05
+         */
+        public static final int TakePicture05 = 0x200F;
+        /**
+         * 启动裁剪程序05
+         */
+        public static final int CropPicture05 = 0x2010;
+        /**
+         * 从发布物品信息界面跳转到物品分类一级界面
+         */
+        public static final int Publish2PublishCategoryList = 0x2011;
+        /**
+         * 从分类一级界面跳转到分类二级界面
+         */
+        public static final int CategoryList2CategoryListNext = 0x2012;
+
+
     }
 
     /**
@@ -441,7 +495,26 @@ public final class Constants {
          * 从显示认证用户信息的界面返回用户个人中心
          */
         public static final int ShowCertifiedInfo2PersonalCenter = 0x300D;
-
+        /**
+         * 从物品信息发布界面返回到个人中心界面
+         */
+        public static final int PublishBack2PersonalCenter = 0x300E;
+        /**
+         * 发布物品信息成功后返回到个人中心界面
+         */
+        public static final int PublishSuccess = 0x300F;
+        /**
+         * 从分类一级界面返回发布物品信息界面
+         */
+        public static final int PublishCategoryListBack2Publish = 0x3010;
+        /**
+         * 从分类二级界面返回分类一级界面
+         */
+        public static final int CategoryListBack2CategoryList = 0x3011;
+        /**
+         * 获取物品分类信息返回到物品发布页面
+         */
+        public static final int CategoryName = 0x3012;
     }
 
     /**
