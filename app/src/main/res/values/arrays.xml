@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="category_all">
+        <item>女装</item>
+        <item>男装</item>
+        <item>鞋包配饰</item>
+        <item>手机</item>
+        <item>相机/摄像机</item>
+        <item>电脑/电脑配件</item>
+        <item>数码3C产品</item>
+        <item>奢侈品转让</item>
+        <item>服装/服饰</item>
+        <item>美容/美颜/香水</item>
+        <item>家居/日用品</item>
+        <item>食品/保健品</item>
+        <item>家用电器/影音设备</item>
+        <item>母婴/儿童用品/玩具</item>
+        <item>宠物/宠物用品</item>
+        <item>生活服务/票务/卡券</item>
+        <item>书刊音像/文体用品</item>
+        <item>二手汽车</item>
+        <item>汽摩/电动车/自行车</item>
+        <item>珠宝/黄金/手表</item>
+        <item>艺术品/收藏品/古董古玩</item>
+        <item>其他闲置</item>
+    </string-array>
+
+    <string-array name="category01">
+        <item>上衣</item>
+        <item>裙子</item>
+        <item>裤装</item>
+    </string-array>
+
+    <string-array name="category02">
+        <item>上衣</item>
+        <item>裤子</item>
+    </string-array>
+
+    <string-array name="category03">
+        <item>旅行箱</item>
+        <item>男鞋</item>
+        <item>男包</item>
+        <item>女鞋</item>
+        <item>女包</item>
+        <item>配饰</item>
+    </string-array>
+
+    <string-array name="category04">
+        <item>手机</item>
+        <item>配件</item>
+    </string-array>
+
+    <string-array name="category05">
+        <item>单反镜头</item>
+        <item>数码单反</item>
+        <item>普通数码相机</item>
+        <item>胶片相机</item>
+        <item>摄像机</item>
+        <item>其他摄影器材</item>
+    </string-array>
+
+    <string-array name="category06">
+        <item>笔记本电脑</item>
+        <item>平板电脑</item>
+        <item>台式机</item>
+        <item>显示器</item>
+        <item>台式机配件</item>
+        <item>网络设备</item>
+        <item>笔记本配件</item>
+    </string-array>
+
+    <string-array name="category07">
+        <item>MP3/MP4/录音笔</item>
+        <item>游戏机</item>
+        <item>游戏软件</item>
+        <item>U盘</item>
+        <item>移动硬盘</item>
+        <item>闪存卡</item>
+        <item>其他数码</item>
+    </string-array>
+
+    <string-array name="category08">
+        <item>大牌包袋</item>
+        <item>奢华腕表</item>
+        <item>顶级鞋服</item>
+        <item>高端配饰</item>
+        <item>其他名品</item>
+    </string-array>
+
+    <string-array name="category09">
+        <item>女装</item>
+        <item>女鞋</item>
+        <item>饰品</item>
+    </string-array>
+
+    <string-array name="category10">
+        <item>美容护肤</item>
+        <item>彩妆</item>
+        <item>美容工具</item>
+        <item>香水</item>
+        <item>美发护发</item>
+        <item>其他化妆品</item>
+    </string-array>
+
+    <string-array name="category11">
+        <item>家具</item>
+        <item>日用日化</item>
+        <item>建材</item>
+        <item>家饰家纺</item>
+        <item>其他居家物品</item>
+    </string-array>
+
+    <string-array name="category12">
+        <item>食品</item>
+        <item>保健品</item>
+    </string-array>
+
+    <string-array name="category13">
+        <item>电视机</item>
+        <item>洗衣机</item>
+        <item>空调</item>
+        <item>冰箱</item>
+        <item>其他大家电</item>
+        <item>厨房电器</item>
+        <item>影音/耳机/HiFi</item>
+        <item>生活小家电</item>
+    </string-array>
+
+    <string-array name="category14">
+        <item>孕产妇用品/营养</item>
+        <item>婴儿装/童装</item>
+        <item>玩具/早教/益智</item>
+        <item>婴儿用品</item>
+        <item>奶粉/宝宝营养</item>
+        <item>其他母婴用品</item>
+    </string-array>
+
+    <string-array name="category15">
+        <item>宠物</item>
+        <item>宠物用品</item>
+        <item>宠物食品</item>
+        <item>其他宠物相关</item>
+    </string-array>
+
+    <string-array name="category16">
+        <item>电影票</item>
+        <item>演出赛事</item>
+        <item>折扣券/购物卡</item>
+        <item>餐饮美食</item>
+        <item>休闲娱乐</item>
+        <item>生活服务</item>
+        <item>其他卡券服务</item>
+    </string-array>
+
+    <string-array name="category17">
+        <item>书籍</item>
+        <item>CD/DVD</item>
+        <item>期刊杂志</item>
+        <item>乐器</item>
+        <item>运动器材</item>
+        <item>文具</item>
+        <item>其他文体用品</item>
+    </string-array>
+
+    <string-array name="category18">
+        <item>二手汽车</item>
+    </string-array>
+
+    <string-array name="category19">
+        <item>汽车配件</item>
+        <item>摩托/电动车</item>
+        <item>摩托/电动配件</item>
+        <item>自行车</item>
+        <item>其他交通工具</item>
+    </string-array>
+
+    <string-array name="category20">
+        <item>翡翠</item>
+        <item>黄金</item>
+        <item>玉石</item>
+        <item>钻石</item>
+        <item>手表</item>
+        <item>其他珠宝</item>
+    </string-array>
+
+    <string-array name="category21">
+        <item>书画</item>
+        <item>收藏品</item>
+        <item>古玩</item>
+        <item>其他古董艺术品</item>
+    </string-array>
+
+    <string-array name="category22">
+        <item>其他闲置</item>
+    </string-array>
+
+</resources>

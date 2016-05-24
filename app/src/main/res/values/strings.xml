@@ -78,6 +78,7 @@
     <string name="personal_center_real_name_authen_no_msg">未认证</string>
     <string name="personal_center_real_name_authen_continue_msg">正在验证</string>
     <string name="personal_center_real_name_authen_yes_msg">已认证</string>
+    <string name="personal_center_publish_textview_msg">我要发布</string>
 
     <!-- 登陆界面 -->
     <string name="login">登录</string>
@@ -233,5 +234,21 @@
         <item>Accordion</item>
     </string-array>
     <!-- JazzyViewPager -->
+
+
+
+    <!--发布商品信息界面-->
+    <string name="publish_title">我要发布</string>
+    <string name="publish_btn_msg">确认发布</string>
+    <string name="publish_item_title_et_msg">标题</string>
+    <string name="publish_item_description_et_msg">描述一下你的闲置</string>
+    <string name="publish_price_title_msg">价格</string>
+    <string name="publish_original_title_msg">原价</string>
+    <string name="publish_default_price">0.00</string>
+    <string name="publish_classification">请选择分类</string>
+    <string name="publish_classification_title_msg">分类</string>
+    <string name="publish_category_list_title">类目</string>
+    <string name="publish_money_symbol">¥</string>
+
 
 </resources>

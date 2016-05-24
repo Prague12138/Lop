@@ -29,6 +29,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
     private TextView mAuthenNo_tv;
     private Button mSignOut_btn;
     private RelativeLayout mRelativeLayout;
+    private RelativeLayout mPublishLayout;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -54,6 +55,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         mAuthenContinue_tv = (TextView) findViewById(R.id.personal_center_real_name_authen_continue);
         mAuthenYes_tv = (TextView) findViewById(R.id.personal_center_real_name_authen_yes);
         mSignOut_btn = (Button) findViewById(R.id.personal_center_signout_btn);
+        mPublishLayout = (RelativeLayout) findViewById(R.id.personal_center_publish_layout_click);
     }
 
     @Override
@@ -61,6 +63,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         mBack_btn.setOnClickListener(this);
         mSignOut_btn.setOnClickListener(this);
         mRelativeLayout.setOnClickListener(this);
+        mPublishLayout.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +89,7 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                         // 进入用户认证信息显示界面
                         Intent showIntent = new Intent(PersonalCenterActivity.this, ShowCertifiedInfoActivity.class);
                         startActivityForResult(showIntent, Constants.IntentRequestCode.PersonalCenter2ShowCertifiedInfo);
-                    } else if (progress.equals(Constants.UserAuthenState.BEING_CERTIFIED)){
+                    } else if (progress.equals(Constants.UserAuthenState.BEING_CERTIFIED)) {
                         DisPlay("正在等待认证...");
                     } else if (progress.equals(Constants.UserAuthenState.UNAUTHORIZED)) {
                         // 进入认证界面
@@ -95,6 +98,10 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                     }
                 }
                 break;
+            case R.id.personal_center_publish_layout_click:
+                // 点击我要发布，跳转到物品发布界面
+                Intent mIntent = new Intent(PersonalCenterActivity.this, PublishActivity.class);
+                startActivityForResult(mIntent, Constants.IntentRequestCode.PersonalCenter2Publish);
             default:
                 break;
         }
@@ -117,6 +124,15 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                     // 从显示认证信息界面返回到个人中心界面
                     break;
                 default:
+                    break;
+            }
+        } else if (requestCode == Constants.IntentRequestCode.PersonalCenter2Publish) {
+            switch (resultCode) {
+                case Constants.IntentResultCode.PublishBack2PersonalCenter:
+                    // 从物品发布界面返回到该界面
+                    break;
+                case Constants.IntentResultCode.PublishSuccess:
+                    // 发布物品信息成功
                     break;
             }
         }

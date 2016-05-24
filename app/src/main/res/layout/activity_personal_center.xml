@@ -42,8 +42,8 @@
             <ImageView
                 android:id="@+id/personal_center_real_name_authen_imageview"
                 style="@style/PersonalIconStyle"
-                android:layout_width="36dp"
-                android:layout_height="38dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/personal_center_authen_icon" />
 
             <TextView
@@ -51,12 +51,13 @@
                 android:layout_toRightOf="@id/personal_center_real_name_authen_imageview"
                 android:text="@string/personal_center_real_name_authen_textview_msg" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/personal_center_real_name_authen_imgbtn"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="32dp"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:src="@drawable/android_list_idex" />
 
             <!--未认证-->
@@ -94,6 +95,34 @@
         </RelativeLayout>
 
         <View style="@style/PersonalLine" />
+
+        <RelativeLayout
+            android:id="@+id/personal_center_publish_layout_click"
+            style="@style/PersonalNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="true">
+
+            <ImageView
+                android:id="@+id/personal_center_publish_icon"
+                style="@style/PersonalIconStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/personal_center_publish_icon" />
+
+            <TextView
+                style="@style/PersonalTextStyle"
+                android:layout_toRightOf="@id/personal_center_publish_icon"
+                android:text="@string/personal_center_publish_textview_msg" />
+
+            <ImageView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/android_list_idex" />
+        </RelativeLayout>
 
     </LinearLayout>
 
