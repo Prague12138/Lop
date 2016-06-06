@@ -123,6 +123,15 @@
         <activity
             android:name=".ui.PublishCategoryListActivity"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.BuyingActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.RentActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui.BorrowActivity"
+            android:theme="@style/AppTheme" />
 
 
         <!--服务-->

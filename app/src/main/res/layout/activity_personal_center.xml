@@ -124,6 +124,96 @@
                 android:src="@drawable/android_list_idex" />
         </RelativeLayout>
 
+        <View style="@style/PersonalLine" />
+
+        <RelativeLayout
+            android:id="@+id/personal_center_buying_layout_click"
+            style="@style/PersonalNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="true">
+
+            <ImageView
+                android:id="@+id/personal_center_buying_icon"
+                style="@style/PersonalIconStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/personal_center_buying_icon" />
+
+            <TextView
+                style="@style/PersonalTextStyle"
+                android:layout_toRightOf="@id/personal_center_buying_icon"
+                android:text="@string/personal_center_buying_textview_msg" />
+
+            <ImageView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/android_list_idex" />
+        </RelativeLayout>
+
+        <View style="@style/PersonalLine" />
+
+        <RelativeLayout
+            android:id="@+id/personal_center_rent_layout_click"
+            style="@style/PersonalNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="true">
+
+            <ImageView
+                android:id="@+id/personal_center_rent_icon"
+                style="@style/PersonalIconStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/personal_center_rent_icon" />
+
+            <TextView
+                style="@style/PersonalTextStyle"
+                android:layout_toRightOf="@id/personal_center_rent_icon"
+                android:text="@string/personal_center_rent_textview_msg" />
+
+            <ImageView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/android_list_idex" />
+        </RelativeLayout>
+
+        <View style="@style/PersonalLine" />
+
+        <RelativeLayout
+            android:id="@+id/personal_center_borrow_layout_click"
+            style="@style/PersonalNormalStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:onClick="true">
+
+            <ImageView
+                android:id="@+id/personal_center_borrow_icon"
+                style="@style/PersonalIconStyle"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/personal_center_borrow_icon" />
+
+            <TextView
+                style="@style/PersonalTextStyle"
+                android:layout_toRightOf="@id/personal_center_borrow_icon"
+                android:text="@string/personal_center_borrow_textview_msg" />
+
+            <ImageView
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/android_list_idex" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <Button

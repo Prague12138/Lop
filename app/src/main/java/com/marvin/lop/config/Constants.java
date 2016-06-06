@@ -434,7 +434,22 @@ public final class Constants {
          * 从分类一级界面跳转到分类二级界面
          */
         public static final int CategoryList2CategoryListNext = 0x2012;
-
+        /**
+         * 从求购界面跳转到物品分类一级界面
+         */
+        public static final int Buying2PublishCategoryList = 0x2013;
+        /**
+         * 从个人信息中心界面跳转到求购信息发布界面
+         */
+        public static final int PersonalCenter2Buying = 0x2014;
+        /**
+         * 从个人信息中心界面跳转到出租信息发布界面
+         */
+        public static final int PersonalCenter2Rent = 0x2015;
+        /**
+         * 从个人信息中心界面跳转到求租信息发布界面
+         */
+        public static final int PersonalCenter2Borrow = 0x2016;
 
     }
 
@@ -515,6 +530,38 @@ public final class Constants {
          * 获取物品分类信息返回到物品发布页面
          */
         public static final int CategoryName = 0x3012;
+        /**
+         * 从分类一级界面返回发布求购信息界面
+         */
+        public static final int PublishCategoryListBack2Buying = 0x3013;
+        /**
+         * 获取物品分类信息返回到求购信息发布页面
+         */
+        public static final int CategoryName2Buying = 0x3014;
+        /**
+         * 从求购界面返回到个人信息中心界面
+         */
+        public static final int BuyingBack2PersonalCenter = 0x3015;
+        /**
+         * 成功发布物品求购信息
+         */
+        public static final int BuyingSuccess = 0x3016;
+        /**
+         * 从发布出租信息界面返回到个人信息中心界面
+         */
+        public static final int RentBack2PersonalCenter = 0x3017;
+        /**
+         * 发布出租信息成功
+         */
+        public static final int RentSuccess = 0x3018;
+        /**
+         * 从发布求租信息界面返回到个人信息中心界面
+         */
+        public static final int BorrowBack2PersonalCenter = 0x3019;
+        /**
+         * 发布求租信息成功
+         */
+        public static final int BorrowSuccess = 0x301A;
     }
 
     /**

@@ -79,6 +79,9 @@
     <string name="personal_center_real_name_authen_continue_msg">正在验证</string>
     <string name="personal_center_real_name_authen_yes_msg">已认证</string>
     <string name="personal_center_publish_textview_msg">我要发布</string>
+    <string name="personal_center_buying_textview_msg">我要求购</string>
+    <string name="personal_center_rent_textview_msg">我要出租</string>
+    <string name="personal_center_borrow_textview_msg">我要求租</string>
 
     <!-- 登陆界面 -->
     <string name="login">登录</string>
@@ -236,7 +239,6 @@
     <!-- JazzyViewPager -->
 
 
-
     <!--发布商品信息界面-->
     <string name="publish_title">我要发布</string>
     <string name="publish_btn_msg">确认发布</string>
@@ -249,6 +251,22 @@
     <string name="publish_classification_title_msg">分类</string>
     <string name="publish_category_list_title">类目</string>
     <string name="publish_money_symbol">¥</string>
+
+    <!--商品求购界面-->
+    <string name="buying_title">我要求购</string>
+    <string name="buying_deadline_date_title_msg">截止日期</string>
+    <string name="buying_deadline_date">请输入截止日期</string>
+    <string name="buying_deadline_time_title_msg">截止时间</string>
+    <string name="buying_deadline_time">请输入截止时间</string>
+    <string name="buying_btn_msg">确认求购</string>
+
+    <!--商品出租界面-->
+    <string name="rent_title">我要出租</string>
+    <string name="rent_btn_msg">确认出租</string>
+
+    <!--商品求租界面-->
+    <string name="borrow_title">我要求租</string>
+    <string name="borrow_btn_msg">确认求租</string>
 
 
 </resources>

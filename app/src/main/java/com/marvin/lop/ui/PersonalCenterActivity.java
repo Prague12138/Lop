@@ -30,6 +30,9 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
     private Button mSignOut_btn;
     private RelativeLayout mRelativeLayout;
     private RelativeLayout mPublishLayout;
+    private RelativeLayout mBuyingLayout;
+    private RelativeLayout mRentLayout;
+    private RelativeLayout mBorrowLayout;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -56,6 +59,9 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         mAuthenYes_tv = (TextView) findViewById(R.id.personal_center_real_name_authen_yes);
         mSignOut_btn = (Button) findViewById(R.id.personal_center_signout_btn);
         mPublishLayout = (RelativeLayout) findViewById(R.id.personal_center_publish_layout_click);
+        mBuyingLayout = (RelativeLayout) findViewById(R.id.personal_center_buying_layout_click);
+        mRentLayout = (RelativeLayout) findViewById(R.id.personal_center_rent_layout_click);
+        mBorrowLayout = (RelativeLayout) findViewById(R.id.personal_center_borrow_layout_click);
     }
 
     @Override
@@ -64,6 +70,9 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
         mSignOut_btn.setOnClickListener(this);
         mRelativeLayout.setOnClickListener(this);
         mPublishLayout.setOnClickListener(this);
+        mBuyingLayout.setOnClickListener(this);
+        mRentLayout.setOnClickListener(this);
+        mBorrowLayout.setOnClickListener(this);
     }
 
     @Override
@@ -102,6 +111,23 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
                 // 点击我要发布，跳转到物品发布界面
                 Intent mIntent = new Intent(PersonalCenterActivity.this, PublishActivity.class);
                 startActivityForResult(mIntent, Constants.IntentRequestCode.PersonalCenter2Publish);
+                break;
+            case R.id.personal_center_buying_layout_click:
+                // 跳转到物品求购界面
+                Intent mIntent1 = new Intent(PersonalCenterActivity.this, BuyingActivity.class);
+                startActivityForResult(mIntent1, Constants.IntentRequestCode.PersonalCenter2Buying);
+                break;
+            case R.id.personal_center_rent_layout_click:
+                // 跳转到物品出租界面
+                Intent mIntent2 = new Intent(PersonalCenterActivity.this, RentActivity.class);
+                startActivityForResult(mIntent2, Constants.IntentRequestCode.PersonalCenter2Rent);
+                break;
+            case R.id.personal_center_borrow_layout_click:
+                // 跳转到物品求租界面
+                Intent mIntent3 = new Intent(PersonalCenterActivity.this, BorrowActivity.class);
+                startActivityForResult(mIntent3, Constants.IntentRequestCode.PersonalCenter2Borrow);
+                // TODO: 2016/6/4 修改onActivityForResult方法
+                break;
             default:
                 break;
         }
@@ -109,32 +135,76 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Constants.IntentRequestCode.IN_REAL_NAME_AUTHEN) {
-            switch (resultCode) {
-                case Constants.IntentResultCode.Authen2PersonalCenter://在认证界面点返回按钮返回到个人信息中心界面
-                    break;
-                case Constants.IntentResultCode.AuthenCommitButton://在认证界面点击提交按钮后返回该界面
-                    break;
-                default:
-                    break;
-            }
-        } else if (requestCode == Constants.IntentRequestCode.PersonalCenter2ShowCertifiedInfo) {
-            switch (resultCode) {
-                case Constants.IntentResultCode.ShowCertifiedInfo2PersonalCenter:
-                    // 从显示认证信息界面返回到个人中心界面
-                    break;
-                default:
-                    break;
-            }
-        } else if (requestCode == Constants.IntentRequestCode.PersonalCenter2Publish) {
-            switch (resultCode) {
-                case Constants.IntentResultCode.PublishBack2PersonalCenter:
-                    // 从物品发布界面返回到该界面
-                    break;
-                case Constants.IntentResultCode.PublishSuccess:
-                    // 发布物品信息成功
-                    break;
-            }
+        switch (requestCode) {
+            case Constants.IntentRequestCode.IN_REAL_NAME_AUTHEN:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.Authen2PersonalCenter://在认证界面点返回按钮返回到个人信息中心界面
+                        break;
+                    case Constants.IntentResultCode.AuthenCommitButton://在认证界面点击提交按钮后返回该界面
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Constants.IntentRequestCode.PersonalCenter2ShowCertifiedInfo:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.ShowCertifiedInfo2PersonalCenter:
+                        // 从显示认证信息界面返回到个人中心界面
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Constants.IntentRequestCode.PersonalCenter2Publish:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.PublishBack2PersonalCenter:
+                        // 从物品发布界面返回到该界面
+                        break;
+                    case Constants.IntentResultCode.PublishSuccess:
+                        // 发布物品信息成功
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Constants.IntentRequestCode.PersonalCenter2Buying:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.BuyingBack2PersonalCenter:
+                        // 从物品求购界面返回到该界面
+                        break;
+                    case Constants.IntentResultCode.BuyingSuccess:
+                        // 成功发布物品求购信息
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Constants.IntentRequestCode.PersonalCenter2Rent:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.RentBack2PersonalCenter:
+                        //从发布出租信息界面返回到个人信息中心界面
+                        break;
+                    case Constants.IntentResultCode.RentSuccess:
+                        // 发布出租信息成功
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case Constants.IntentRequestCode.PersonalCenter2Borrow:
+                switch (resultCode) {
+                    case Constants.IntentResultCode.BorrowBack2PersonalCenter:
+                        // 从发布求租信息界面返回到个人信息中心界面
+                        break;
+                    case Constants.IntentResultCode.BorrowSuccess:
+                        // 发布求租信息成功
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

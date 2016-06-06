@@ -20,10 +20,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.marvin.lop.R;
-import com.marvin.lop.bean.CommodityInfo;
+import com.marvin.lop.bean.RentInfo;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.CreateNewCommodity;
+import com.marvin.lop.utils.CreateNewRent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,14 +36,14 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadBatchListener;
 
 /**
- * Created by Marvin on 2016/4/30.
+ * Created by Marvin on 2016/6/4.
  * Email:1576925704@qq.com
  * Project Name :  Lop
- * 用来发布物品信息的界面
+ * 发布出租信息的界面
  */
-public class PublishActivity extends BaseActivity implements View.OnClickListener {
+public class RentActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = PublishActivity.class.getSimpleName();
+    private static final String TAG = RentActivity.class.getSimpleName();
 
     private ImageButton mBackbtn;
     private EditText mTitle;
@@ -53,15 +54,13 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
     private ImageView img04;
     private ImageView img05;
     private EditText mPrice;
-    private EditText mOriPrice;
     private TextView mCategory;
     private RelativeLayout mCategoryClick;
-    private Button mPublish;
+    private Button mRent;
 
     private String itemTitle;//物品标题
     private String itemDes;//物品描述
     private String itemPrice;//价格
-    private String itemOriPrice;//原价
     private String categoryName1;//物品分类大类
     private String categoryName2;//物品分类小类
     private String picPath01;
@@ -93,15 +92,14 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
     private Uri imageUri04;
     private Uri imageUri05;
 
-    private CommodityInfo commodityInfo;
+    private RentInfo rentInfo;
 
     private SharedPreferences sharedPreferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_publish);
+        setContentView(R.layout.activity_rent);
 
         sharedPreferences = this.getSharedPreferences(Constants.SharedPreferencesConfig.FILENAME, MODE_PRIVATE);
 
@@ -111,24 +109,23 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void findViewById() {
-        mBackbtn = (ImageButton) findViewById(R.id.publish_back_button);
-        mTitle = (EditText) findViewById(R.id.publish_item_title_et);
-        mDes = (EditText) findViewById(R.id.publish_item_description_et);
-        img01 = (ImageView) findViewById(R.id.publish_pic_01);
-        img02 = (ImageView) findViewById(R.id.publish_pic_02);
-        img03 = (ImageView) findViewById(R.id.publish_pic_03);
-        img04 = (ImageView) findViewById(R.id.publish_pic_04);
-        img05 = (ImageView) findViewById(R.id.publish_pic_05);
-        mPrice = (EditText) findViewById(R.id.publish_price_default);
-        mOriPrice = (EditText) findViewById(R.id.publish_original_price_default);
-        mCategory = (TextView) findViewById(R.id.publish_classification);
-        mCategoryClick = (RelativeLayout) findViewById(R.id.publish_classification_layout_click);
-        mPublish = (Button) findViewById(R.id.publish_btn);
+        mBackbtn = (ImageButton) findViewById(R.id.rent_back_button);
+        mTitle = (EditText) findViewById(R.id.rent_item_title_et);
+        mDes = (EditText) findViewById(R.id.rent_item_description_et);
+        img01 = (ImageView) findViewById(R.id.rent_pic_01);
+        img02 = (ImageView) findViewById(R.id.rent_pic_02);
+        img03 = (ImageView) findViewById(R.id.rent_pic_03);
+        img04 = (ImageView) findViewById(R.id.rent_pic_04);
+        img05 = (ImageView) findViewById(R.id.rent_pic_05);
+        mPrice = (EditText) findViewById(R.id.rent_price_default);
+        mCategory = (TextView) findViewById(R.id.rent_classification);
+        mCategoryClick = (RelativeLayout) findViewById(R.id.rent_classification_layout_click);
+        mRent = (Button) findViewById(R.id.rent_btn);
     }
 
     @Override
     protected void initView() {
-        commodityInfo = new CommodityInfo();
+        rentInfo = new RentInfo();
         defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.publish_add_pic_default);
 
         mBackbtn.setOnClickListener(this);
@@ -138,23 +135,23 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
         img04.setOnClickListener(this);
         img05.setOnClickListener(this);
         mCategoryClick.setOnClickListener(this);
-        mPublish.setOnClickListener(this);
+        mRent.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.publish_back_button:
+            case R.id.rent_back_button:
                 // 返回个人信息中心界面
-                setResult(Constants.IntentResultCode.PublishBack2PersonalCenter);
+                setResult(Constants.IntentResultCode.RentBack2PersonalCenter);
                 this.finish();
                 break;
-            case R.id.publish_pic_01:
+            case R.id.rent_pic_01:
                 // 点击第一张图片，选择物品图片，作为主图片，替换掉默认的图片，必须提供5张物品图片
                 // 下一张图片的位置显示默认图片,当图片已经设置之后，再次点击图片，弹出一个对话框
                 // 选择是否删除当前图片
                 if (!pic01) { // 如果当前图片是默认图片,点击该图片弹出对话框，选择是拍照还是从图库中选择一张图片
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("拍照或从图库中选择一张图片")
                             .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
                                 @Override
@@ -198,7 +195,7 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         }
                     }).show();
                 } else { // 当前是替换后的图片，点击该图片弹出对话框，选择是否删除当前图片，删除后使用默认图片替换当前图片
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("是否删除当前图片")
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
@@ -214,9 +211,9 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     }).show();
                 }
                 break;
-            case R.id.publish_pic_02:
+            case R.id.rent_pic_02:
                 if (!pic02) {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("拍照或从图库中选择一张图片")
                             .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
                                 @Override
@@ -259,7 +256,7 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         }
                     }).show();
                 } else {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("是否删除当前图片")
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
@@ -275,9 +272,9 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     }).show();
                 }
                 break;
-            case R.id.publish_pic_03:
+            case R.id.rent_pic_03:
                 if (!pic03) {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("拍照或从图库中选择一张图片")
                             .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
                                 @Override
@@ -320,7 +317,7 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         }
                     }).show();
                 } else {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("是否删除当前图片")
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
@@ -336,9 +333,9 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     }).show();
                 }
                 break;
-            case R.id.publish_pic_04:
+            case R.id.rent_pic_04:
                 if (!pic04) {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("拍照或从图库中选择一张图片")
                             .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
                                 @Override
@@ -381,7 +378,7 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         }
                     }).show();
                 } else {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("是否删除当前图片")
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
@@ -397,9 +394,9 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     }).show();
                 }
                 break;
-            case R.id.publish_pic_05:
+            case R.id.rent_pic_05:
                 if (!pic05) {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("拍照或从图库中选择一张图片")
                             .setPositiveButton("拍照", new DialogInterface.OnClickListener() {
                                 @Override
@@ -442,7 +439,7 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         }
                     }).show();
                 } else {
-                    new AlertDialog.Builder(PublishActivity.this)
+                    new AlertDialog.Builder(RentActivity.this)
                             .setMessage("是否删除当前图片")
                             .setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                 @Override
@@ -458,99 +455,91 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     }).show();
                 }
                 break;
-            case R.id.publish_classification_layout_click:
+            case R.id.rent_classification_layout_click:
                 // 选择物品所在分类
-                Intent mIntent = new Intent(PublishActivity.this, PublishCategoryListActivity.class);
+                Intent mIntent = new Intent(RentActivity.this, PublishCategoryListActivity.class);
                 startActivityForResult(mIntent, Constants.IntentRequestCode.Publish2PublishCategoryList);
                 break;
-            case R.id.publish_btn:
+            case R.id.rent_btn:
                 // 提交物品信息之后 返回到个人信息界面并将物品信息在后台上传到服务器
                 // TODO: 2016/5/7  另外，需要把上传物品信息作为异步操作来处理，当上传成功，上传的时候在通知里面显示一个进度条用来表示上传的进度
                 if (!mTitle.getText().toString().equals("")) {
                     if (!mDes.getText().toString().equals("")) {
                         if (pic01 && pic02 && pic03 && pic04 && pic05) {
                             if (!mPrice.getText().toString().equals("")) {
-                                if (!mOriPrice.getText().toString().equals("")) {
-                                    if (isCategory) {
-                                        itemTitle = mTitle.getText().toString();
-                                        itemDes = mDes.getText().toString();
-                                        itemPrice = mPrice.getText().toString();
-                                        itemOriPrice = mOriPrice.getText().toString();
-                                        final String[] filePaths = new String[5];
-                                        filePaths[0] = picPath01;
-                                        filePaths[1] = picPath02;
-                                        filePaths[2] = picPath03;
-                                        filePaths[3] = picPath04;
-                                        filePaths[4] = picPath05;
-                                        BmobFile.uploadBatch(PublishActivity.this, filePaths,
-                                                new UploadBatchListener() {
-                                                    @Override
-                                                    public void onSuccess(List<BmobFile> list, List<String> urls) {
-                                                        //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
-                                                        //2、urls-上传文件的完整url地址
-                                                        if (urls.size() == filePaths.length) {//如果数量相等，则代表文件全部上传完成
-                                                            picAbsPath1 = urls.get(0);
-                                                            picAbsPath2 = urls.get(1);
-                                                            picAbsPath3 = urls.get(2);
-                                                            picAbsPath4 = urls.get(3);
-                                                            picAbsPath5 = urls.get(4);
-                                                            Log.i(TAG, picAbsPath1);
-                                                            Log.i(TAG, picAbsPath2);
-                                                            Log.i(TAG, picAbsPath3);
-                                                            Log.i(TAG, picAbsPath4);
-                                                            Log.i(TAG, picAbsPath5);
+                                if (isCategory) {
+                                    itemTitle = mTitle.getText().toString();
+                                    itemDes = mDes.getText().toString();
+                                    itemPrice = mPrice.getText().toString();
+                                    final String[] filePaths = new String[5];
+                                    filePaths[0] = picPath01;
+                                    filePaths[1] = picPath02;
+                                    filePaths[2] = picPath03;
+                                    filePaths[3] = picPath04;
+                                    filePaths[4] = picPath05;
+                                    BmobFile.uploadBatch(RentActivity.this, filePaths,
+                                            new UploadBatchListener() {
+                                                @Override
+                                                public void onSuccess(List<BmobFile> list, List<String> urls) {
+                                                    //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+                                                    //2、urls-上传文件的完整url地址
+                                                    if (urls.size() == filePaths.length) {//如果数量相等，则代表文件全部上传完成
+                                                        picAbsPath1 = urls.get(0);
+                                                        picAbsPath2 = urls.get(1);
+                                                        picAbsPath3 = urls.get(2);
+                                                        picAbsPath4 = urls.get(3);
+                                                        picAbsPath5 = urls.get(4);
+                                                        Log.i(TAG, picAbsPath1);
+                                                        Log.i(TAG, picAbsPath2);
+                                                        Log.i(TAG, picAbsPath3);
+                                                        Log.i(TAG, picAbsPath4);
+                                                        Log.i(TAG, picAbsPath5);
 
-                                                            // 将商品信息上传到数据库
-                                                            CreateNewCommodity cnc = new CreateNewCommodity();
-                                                            // commodityState false是未出售，
-                                                            String userObjectId = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null);
-                                                            commodityInfo = cnc.createCommodityInfoInServer(itemTitle, itemDes, picAbsPath1, picAbsPath2,
-                                                                    picAbsPath3, picAbsPath4, picAbsPath5, itemOriPrice, itemPrice, categoryName1, categoryName2,
-                                                                    userObjectId, false);
-                                                            commodityInfo.save(PublishActivity.this, new SaveListener() {
-                                                                @Override
-                                                                public void onSuccess() {
-                                                                    DisPlay("商品信息发布成功!");
-                                                                    // TODO: 2016/6/4 在发布商品信息的时候讲操作放到后台运行，就行发微博一样，先显示一个通知，显示正在发送，
-                                                                    // 发布成功后就提示发布成功
-                                                                    setResult(Constants.IntentResultCode.PublishSuccess);
-                                                                    PublishActivity.this.finish();
-                                                                }
+                                                        // 将商品信息上传到数据库
+                                                        CreateNewRent cnr = new CreateNewRent();
+                                                        String userObjectId = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null);
+                                                        rentInfo = cnr.createRentInfoInServer(itemTitle, itemDes, picAbsPath1, picAbsPath2,
+                                                                picAbsPath3, picAbsPath4, picAbsPath5, itemPrice, categoryName1, categoryName2,
+                                                                userObjectId, false);
+                                                        rentInfo.save(RentActivity.this, new SaveListener() {
+                                                            @Override
+                                                            public void onSuccess() {
+                                                                DisPlay("商品信息发布成功!");
+                                                                // TODO: 2016/6/4 在发布商品信息的时候讲操作放到后台运行，就行发微博一样，先显示一个通知，显示正在发送，
+                                                                // 发布成功后就提示发布成功
+                                                                setResult(Constants.IntentResultCode.RentSuccess);
+                                                                RentActivity.this.finish();
+                                                            }
 
-                                                                @Override
-                                                                public void onFailure(int i, String s) {
-                                                                    DisPlay("商品信息发布失败!");
-                                                                    Log.i(TAG, i + "  " + s);
-                                                                }
-                                                            });
-                                                        }
-
+                                                            @Override
+                                                            public void onFailure(int i, String s) {
+                                                                DisPlay("商品信息发布失败!");
+                                                                Log.i(TAG, i + "  " + s);
+                                                            }
+                                                        });
                                                     }
 
-                                                    @Override
-                                                    public void onProgress(int i, int i1, int i2, int i3) {
-                                                        //1、curIndex--表示当前第几个文件正在上传
-                                                        //2、curPercent--表示当前上传文件的进度值（百分比）
-                                                        //3、total--表示总的上传文件数
-                                                        //4、totalPercent--表示总的上传进度（百分比）
-                                                        Log.i(TAG, "curIndex = " + i);
-                                                        Log.i(TAG, "curPercent = " + i1);
-                                                        Log.i(TAG, "total = " + i2);
-                                                        Log.i(TAG, "totalPercent = " + i3);
-                                                    }
+                                                }
 
-                                                    @Override
-                                                    public void onError(int statuscode, String errormsg) {
-                                                        DisPlay("错误码" + statuscode + ",错误描述：" + errormsg);
-                                                    }
-                                                });
+                                                @Override
+                                                public void onProgress(int i, int i1, int i2, int i3) {
+                                                    //1、curIndex--表示当前第几个文件正在上传
+                                                    //2、curPercent--表示当前上传文件的进度值（百分比）
+                                                    //3、total--表示总的上传文件数
+                                                    //4、totalPercent--表示总的上传进度（百分比）
+                                                    Log.i(TAG, "curIndex = " + i);
+                                                    Log.i(TAG, "curPercent = " + i1);
+                                                    Log.i(TAG, "total = " + i2);
+                                                    Log.i(TAG, "totalPercent = " + i3);
+                                                }
 
-
-                                    } else {
-                                        DisPlay("请选择物品分类");
-                                    }
+                                                @Override
+                                                public void onError(int statuscode, String errormsg) {
+                                                    DisPlay("错误码" + statuscode + ",错误描述：" + errormsg);
+                                                }
+                                            });
                                 } else {
-                                    DisPlay("请输入原价");
+                                    DisPlay("请选择物品分类");
                                 }
                             } else {
                                 DisPlay("请输入价格");
@@ -760,5 +749,4 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 }
