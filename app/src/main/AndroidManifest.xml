@@ -47,91 +47,91 @@
 
         <activity
             android:name=".ui.HomeActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.MainActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.CategoryActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.CartActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.PersonalActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.SearchActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.LoginActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.FastRegisterActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.AuthenPhoneNumberActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.SetPasswordActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.PersonalCenterActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.RealNameAuthenActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.MoreActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexShakeActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexClothingActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexDigtalActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexDaily"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.IndexEbookActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".zxing.CaptureActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".zxing.CaptureResultActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.HandleNewUserAuthenList"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.HandlingOthersCertifiedActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.ShowCertifiedInfoActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.PublishActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.PublishCategoryListActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.BuyingActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.RentActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ui.BorrowActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@android:style/Theme.NoTitleBar" />
 
 
         <!--服务-->

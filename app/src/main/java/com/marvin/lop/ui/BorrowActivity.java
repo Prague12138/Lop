@@ -11,12 +11,20 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.datetimepicker.time.RadialPickerLayout;
+import com.android.datetimepicker.time.TimePickerDialog;
 import com.marvin.lop.R;
 import com.marvin.lop.bean.BorrowInfo;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.CreateNewBorrow;
 import com.marvin.lop.utils.CreateNewBuying;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -26,7 +34,8 @@ import cn.bmob.v3.listener.SaveListener;
  * Project Name :  Lop
  * 发布求租信息的界面
  */
-public class BorrowActivity extends BaseActivity implements View.OnClickListener {
+public class BorrowActivity extends BaseActivity implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = BorrowActivity.class.getSimpleName();
 
@@ -36,8 +45,8 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
     private EditText mPrice;
     private TextView mCategory;
     private RelativeLayout mCategoryClick;
-    private EditText mDeadlineDate;
-    private EditText mDeadlineTime;
+    private TextView mDeadlineDate;
+    private TextView mDeadlineTime;
     private Button mBorrow;
 
     private String itemTitle;
@@ -54,12 +63,21 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
 
     private SharedPreferences sharedPreferences;
 
+    private Calendar calendar;
+    private DateFormat dateFormat;
+    private SimpleDateFormat timeFormat;
+    private static final String TIME_PATTERN = "HH:mm";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrow);
 
         sharedPreferences = this.getSharedPreferences(Constants.SharedPreferencesConfig.FILENAME, MODE_PRIVATE);
+
+        calendar = Calendar.getInstance();
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+        timeFormat = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
 
         findViewById();
         initView();
@@ -73,8 +91,8 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
         mPrice = (EditText) findViewById(R.id.borrow_price_default);
         mCategory = (TextView) findViewById(R.id.borrow_classification);
         mCategoryClick = (RelativeLayout) findViewById(R.id.borrow_classification_layout_click);
-        mDeadlineDate = (EditText) findViewById(R.id.borrow_deadline_date_et);
-        mDeadlineTime = (EditText) findViewById(R.id.borrow_deadline_time_et);
+        mDeadlineDate = (TextView) findViewById(R.id.borrow_deadline_date_tv);
+        mDeadlineTime = (TextView) findViewById(R.id.borrow_deadline_time_tv);
         mBorrow = (Button) findViewById(R.id.borrow_btn);
     }
 
@@ -85,6 +103,8 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
         mBackbtn.setOnClickListener(this);
         mCategoryClick.setOnClickListener(this);
         mBorrow.setOnClickListener(this);
+        mDeadlineDate.setOnClickListener(this);
+        mDeadlineTime.setOnClickListener(this);
     }
 
     @Override
@@ -100,14 +120,23 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
                 Intent mIntent = new Intent(BorrowActivity.this, PublishCategoryListActivity.class);
                 startActivityForResult(mIntent, Constants.IntentRequestCode.Publish2PublishCategoryList);
                 break;
+            case R.id.borrow_deadline_date_tv:
+                DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                        .show(getFragmentManager(), "datePicker");
+                break;
+            case R.id.borrow_deadline_time_tv:
+                TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE), true).show(getFragmentManager(), "timePicker");
+                break;
             case R.id.borrow_btn:
                 // 提交物品信息之后 返回到个人信息界面并将物品信息在后台上传到服务器
                 // TODO: 2016/5/7  另外，需要把上传物品信息作为异步操作来处理，当上传成功，上传的时候在通知里面显示一个进度条用来表示上传的进度
                 if (!mTitle.getText().toString().equals("")) {
                     if (!mDes.getText().toString().equals("")) {
                         if (!mPrice.getText().toString().equals("")) {
-                            if (!mDeadlineDate.getText().toString().equals("")) {
-                                if (!mDeadlineTime.getText().toString().equals("")) {
+                            if (!itemDeadlineDate.equals("")) {
+                                if (!itemDeadlineTime.equals("")) {
                                     if (isCategory) {
                                         itemTitle = mTitle.getText().toString();
                                         itemDes = mDes.getText().toString();
@@ -164,7 +193,7 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case Constants.IntentRequestCode.Publish2PublishCategoryList:
-                switch(resultCode) {
+                switch (resultCode) {
                     case Constants.IntentResultCode.PublishCategoryListBack2Buying:
                         // 从物品分类界面返回该界面，没有操作
                         break;
@@ -184,5 +213,28 @@ public class BorrowActivity extends BaseActivity implements View.OnClickListener
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void updateDate() {
+        mDeadlineDate.setText(dateFormat.format(calendar.getTime()));
+        itemDeadlineDate = dateFormat.format(calendar.getTime());
+    }
+
+    private void updateTime() {
+        mDeadlineTime.setText(timeFormat.format(calendar.getTime()));
+        itemDeadlineTime = timeFormat.format(calendar.getTime());
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+        calendar.set(year, monthOfYear, dayOfMonth);
+        updateDate();
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        updateTime();
     }
 }

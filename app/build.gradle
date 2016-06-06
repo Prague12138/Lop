@@ -50,5 +50,7 @@ dependencies {
     compile files('libs/nineoldandroids.jar')
     compile files('libs/zxing.jar')
 
+    compile 'com.github.citux:datetimepicker:0.2.0'
+
 
 }

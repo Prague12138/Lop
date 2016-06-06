@@ -162,17 +162,17 @@
                         android:text="@string/buying_deadline_date_title_msg"
                         android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/borrow_deadline_date_et"
+                    <TextView
+                        android:id="@+id/borrow_deadline_date_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@id/borrow_deadline_date_textview"
                         android:background="@null"
-                        android:ems="10"
+                        android:clickable="true"
                         android:hint="@string/buying_deadline_date"
-                        android:inputType="date"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </RelativeLayout>
 
@@ -193,17 +193,17 @@
                         android:text="@string/buying_deadline_time_title_msg"
                         android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/borrow_deadline_time_et"
+                    <TextView
+                        android:id="@+id/borrow_deadline_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@id/borrow_deadline_time_textview"
                         android:background="@null"
-                        android:ems="10"
+                        android:clickable="true"
                         android:hint="@string/buying_deadline_time"
-                        android:inputType="date"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </RelativeLayout>
 

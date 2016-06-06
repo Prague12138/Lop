@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/android_layout_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,7 +26,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:text="@string/publish_category_list_title"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="@dimen/medium_text_size" />
 
     </LinearLayout>

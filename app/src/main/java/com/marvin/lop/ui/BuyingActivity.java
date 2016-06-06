@@ -11,11 +11,19 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.datetimepicker.date.DatePickerDialog;
+import com.android.datetimepicker.time.RadialPickerLayout;
+import com.android.datetimepicker.time.TimePickerDialog;
 import com.marvin.lop.R;
 import com.marvin.lop.bean.BuyingInfo;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.CreateNewBuying;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -25,8 +33,8 @@ import cn.bmob.v3.listener.SaveListener;
  * Project Name :  Lop
  * 发布求购信息的界面
  */
-
-public class BuyingActivity extends BaseActivity implements View.OnClickListener {
+public class BuyingActivity extends BaseActivity implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = BuyingActivity.class.getSimpleName();
 
@@ -36,8 +44,8 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
     private EditText mPrice;
     private TextView mCategory;
     private RelativeLayout mCategoryClick;
-    private EditText mDeadlineDate;
-    private EditText mDeadlineTime;
+    private TextView mDeadlineDate;
+    private TextView mDeadlineTime;
     private Button mBuying;
 
     private String itemTitle;
@@ -54,12 +62,21 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
 
     private SharedPreferences sharedPreferences;
 
+    private Calendar calendar;
+    private DateFormat dateFormat;
+    private SimpleDateFormat timeFormat;
+    private static final String TIME_PATTERN = "HH:mm";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buying);
 
         sharedPreferences = this.getSharedPreferences(Constants.SharedPreferencesConfig.FILENAME, MODE_PRIVATE);
+
+        calendar = Calendar.getInstance();
+        dateFormat = DateFormat.getDateInstance(DateFormat.LONG, Locale.getDefault());
+        timeFormat = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
 
         findViewById();
         initView();
@@ -73,8 +90,8 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
         mPrice = (EditText) findViewById(R.id.buying_price_default);
         mCategory = (TextView) findViewById(R.id.buying_classification);
         mCategoryClick = (RelativeLayout) findViewById(R.id.buying_classification_layout_click);
-        mDeadlineDate = (EditText) findViewById(R.id.buying_deadline_date_et);
-        mDeadlineTime = (EditText) findViewById(R.id.buying_deadline_time_et);
+        mDeadlineDate = (TextView) findViewById(R.id.buying_deadline_date_tv);
+        mDeadlineTime = (TextView) findViewById(R.id.buying_deadline_time_tv);
         mBuying = (Button) findViewById(R.id.buying_btn);
     }
 
@@ -86,7 +103,8 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
         mBackbtn.setOnClickListener(this);
         mCategoryClick.setOnClickListener(this);
         mBuying.setOnClickListener(this);
-//        mDeadline.setOnClickListener(this);
+        mDeadlineDate.setOnClickListener(this);
+        mDeadlineTime.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -101,18 +119,23 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
                 Intent mIntent = new Intent(BuyingActivity.this, PublishCategoryListActivity.class);
                 startActivityForResult(mIntent, Constants.IntentRequestCode.Publish2PublishCategoryList);
                 break;
-//            case R.id.buying_deadline_time_tv:
-//                 选择截止时间
-//                mDialogAll.show(getSupportFragmentManager(), "all");
-//                break;
+            case R.id.buying_deadline_date_tv:
+                DatePickerDialog.newInstance(this, calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                        .show(getFragmentManager(), "datePicker");
+                break;
+            case R.id.buying_deadline_time_tv:
+                TimePickerDialog.newInstance(this, calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE), true).show(getFragmentManager(), "timePicker");
+                break;
             case R.id.buying_btn:
                 // 提交物品信息之后 返回到个人信息界面并将物品信息在后台上传到服务器
                 // TODO: 2016/5/7  另外，需要把上传物品信息作为异步操作来处理，当上传成功，上传的时候在通知里面显示一个进度条用来表示上传的进度
                 if (!mTitle.getText().toString().equals("")) {
                     if (!mDes.getText().toString().equals("")) {
                         if (!mPrice.getText().toString().equals("")) {
-                            if (!mDeadlineDate.getText().toString().equals("")) {
-                                if (!mDeadlineTime.getText().toString().equals("")) {
+                            if (!itemDeadlineDate.equals("")) {
+                                if (!itemDeadlineTime.equals("")) {
                                     if (isCategory) {
                                         itemTitle = mTitle.getText().toString();
                                         itemDes = mDes.getText().toString();
@@ -122,7 +145,6 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
 
                                         // 将求购信息上传到数据库
                                         CreateNewBuying cnb = new CreateNewBuying();
-//                                BmobDate bd = BmobDate.createBmobDate("yyyy-MM-dd HH:mm:ss", itemDeadline);
                                         String userObjectId = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null);
                                         buyingInfo = cnb.createBuyingInfoInServer(itemTitle, itemDes, itemPrice, itemDeadlineDate, itemDeadlineTime,
                                                 categoryName1, categoryName2, userObjectId, false);
@@ -193,4 +215,26 @@ public class BuyingActivity extends BaseActivity implements View.OnClickListener
     }
 
 
+    private void updateDate() {
+        mDeadlineDate.setText(dateFormat.format(calendar.getTime()));
+        itemDeadlineDate = dateFormat.format(calendar.getTime());
+    }
+
+    private void updateTime() {
+        mDeadlineTime.setText(timeFormat.format(calendar.getTime()));
+        itemDeadlineTime = timeFormat.format(calendar.getTime());
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+        calendar.set(year, monthOfYear, dayOfMonth);
+        updateDate();
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        updateTime();
+    }
 }
