@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/android_layout_bg"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/android_title_bg"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/borrow_back_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/left_back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:text="@string/borrow_title"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/PersonalMainLayoutStyle">
+
+                <EditText
+                    android:id="@+id/borrow_item_title_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:hint="@string/publish_item_title_et_msg"
+                    android:textSize="20sp" />
+
+                <View style="@style/PersonalLine" />
+
+                <EditText
+                    android:id="@+id/borrow_item_description_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:fadeScrollbars="true"
+                    android:gravity="start"
+                    android:hint="@string/publish_item_description_et_msg"
+                    android:inputType="textMultiLine"
+                    android:minLines="3"
+                    android:scrollbars="vertical"
+                    android:textSize="20sp" />
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout
+                    style="@style/PersonalNormalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/borrow_price_textview"
+                        style="@style/PersonalTextStyle"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/publish_price_title_msg"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/borrow_price_money_symbol"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/borrow_price_textview"
+                        android:src="@drawable/money_symbol_32" />
+
+                    <EditText
+                        android:id="@+id/borrow_price_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/borrow_price_money_symbol"
+                        android:background="@null"
+                        android:hint="@string/publish_default_price"
+                        android:inputType="number"
+                        android:textColor="@color/gray"
+                        android:textSize="20sp" />
+
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout
+                    android:id="@+id/borrow_classification_layout_click"
+                    style="@style/PersonalNormalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:onClick="true">
+
+                    <TextView
+                        android:id="@+id/borrow_classification_textview"
+                        style="@style/PersonalTextStyle"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/publish_classification_title_msg"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/borrow_classification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@id/borrow_classification_textview"
+                        android:text="@string/publish_classification"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/borrow_classification_imgbtn"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:src="@drawable/android_list_idex" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+                <!--时间选择器-->
+                <RelativeLayout
+                    android:id="@+id/borrow_deadline_date_layout_click"
+                    style="@style/PersonalNormalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/borrow_deadline_date_textview"
+                        style="@style/PersonalTextStyle"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/buying_deadline_date_title_msg"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/borrow_deadline_date_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/borrow_deadline_date_textview"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/buying_deadline_date"
+                        android:inputType="date"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+                <View style="@style/PersonalLine" />
+
+                <RelativeLayout
+                    android:id="@+id/borrow_deadline_time_layout_click"
+                    style="@style/PersonalNormalStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/borrow_deadline_time_textview"
+                        style="@style/PersonalTextStyle"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/buying_deadline_time_title_msg"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/borrow_deadline_time_et"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/borrow_deadline_time_textview"
+                        android:background="@null"
+                        android:ems="10"
+                        android:hint="@string/buying_deadline_time"
+                        android:inputType="date"
+                        android:textSize="20sp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/borrow_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/android_title_bg"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="@string/borrow_btn_msg"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
