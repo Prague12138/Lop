@@ -14,6 +14,7 @@ import com.marvin.lop.config.Constants;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.CommonTools;
 import com.marvin.lop.utils.CreateNewUser;
+import com.marvin.lop.utils.MD5;
 
 import cn.bmob.v3.listener.SaveListener;
 
@@ -75,6 +76,8 @@ public class SetPasswordActivity extends BaseActivity {
                         if (!mRePassowrd_et.getText().toString().equals("")) { // 确认密码不为空
                             if (mRePassowrd_et.getText().toString().equals(mPassword_et.getText().toString())) { // 密码和确认密码相同
                                 String password = mRePassowrd_et.getText().toString();
+                                // 将密码使用MD5加密
+                                password = MD5.getMD5(password);
                                 editor.putString(Constants.SharedPreferencesConfig.USER_PASSWORD, password);// 把密码存入SharedPreferences
                                 String phoneNumber = sharedPreferences.getString(Constants.SharedPreferencesConfig.PHONE_NUMBER, null);//把手机号从SharedPreferences中取出
                                 Log.i(TAG, phoneNumber + "");

@@ -18,6 +18,7 @@ import com.marvin.lop.bean.CertifiedUsers;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.service.HandleCertifiedService;
 import com.marvin.lop.ui.base.BaseActivity;
+import com.marvin.lop.utils.MD5;
 import com.marvin.lop.utils.QueryFromServer;
 
 import cn.bmob.v3.BmobQuery;
@@ -105,7 +106,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                                         if (list.size() > 0) { // 返回数据条数大于1，说明有这条数据
                                             password = list.get(0).getUserPassword();
                                             objectId = list.get(0).getObjectId();
-                                            if (mLoginUserPassword.getText().toString().equals(password)) {
+                                            if (MD5.getMD5(mLoginUserPassword.getText().toString()).equals(password)) {
                                                 DisPlay("登陆成功");
 //                                                isLogin = true;
                                                 // 从服务器获取认证的进度，保存在本地
