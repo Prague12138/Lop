@@ -80,7 +80,8 @@ public class SetPasswordActivity extends BaseActivity {
                                 Log.i(TAG, phoneNumber + "");
 
                                 CreateNewUser cnu = new CreateNewUser();
-                                certifiedUsers = cnu.createUserInServer(phoneNumber, password, 0, 0, null, null, null, null, null, false);
+                                certifiedUsers = cnu.createUserInServer(phoneNumber, password, 0, 0, null, null, null, null,
+                                        Constants.UserAuthenState.UNAUTHORIZED, false);
                                 certifiedUsers.save(SetPasswordActivity.this, new SaveListener() {
                                     @Override
                                     public void onSuccess() {

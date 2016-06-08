@@ -176,7 +176,7 @@ public class HandleCertifiedService extends Service {
             }
         }).start();
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int time = 5 * 60 * 1000;// 这是5分钟的毫秒数，每5分钟启动一次服务从服务器查询数据
+        int time = 1 * 60 * 500;// 这是5分钟的毫秒数，每5分钟启动一次服务从服务器查询数据
 //        int time = (int) (0.1 * 60 * 1000); // 这是10秒的毫秒数，用于测试，每10秒启动一次服务用来查询数据
         long triggerAtTime = SystemClock.elapsedRealtime() + time;
         Intent i = new Intent(this, HandleCertifiedReceiver.class);
