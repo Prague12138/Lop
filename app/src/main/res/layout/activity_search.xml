@@ -9,11 +9,9 @@
         android:id="@+id/search_top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:background="@drawable/android_title_bg"
         android:gravity="center_vertical"
         android:orientation="horizontal">
-
 
         <com.marvin.lop.widgets.AutoClearEditText
             android:id="@+id/search_edit"
@@ -41,38 +39,31 @@
             android:src="@drawable/android_search_icon" />
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/search_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_top_layout"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:listSelector="@null"
-        android:scrollbars="none"
-        android:visibility="gone" />
-
     <LinearLayout
         android:id="@+id/layout_login"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="35dp"
-            android:src="@color/white" />
-
         <TextView
+            android:id="@+id/search_null_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:paddingTop="20dp"
-            android:text="@string/search_info" />
+            android:text="@string/search_info"
+            android:visibility="visible" />
+
+        <ListView
+            android:id="@+id/search_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fadeScrollbars="true"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 </LinearLayout>

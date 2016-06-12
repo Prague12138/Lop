@@ -97,6 +97,37 @@ public final class BeanConstants {
         public static final String UserObjectId = "objectId";
     }
 
+    /**
+     * 商品信息表--属性名
+     */
+    public static final class CommodityInfoProperties {
+        public static final String CommodityTitle = "commodityTitle";
+        public static final String CommodityDescribe = "commodityDescribe";
+        public static final String CommodityPicPath1 = "commodityPicPath1";
+        public static final String CommodityPicPath2 = "commodityPicPath2";
+        public static final String CommodityPicPath3 = "commodityPicPath3";
+        public static final String CommodityPicPath4 = "commodityPicPath4";
+        public static final String CommodityPicPath5 = "commodityPicPath5";
+        public static final String CommodityOriPirce = "commodityOriPrice";
+        public static final String CommodityPrice = "commodityPrice";
+        public static final String CommodityCategory1 = "commodityCategory1";
+        public static final String CommodityCategory2 = "commodityCategory2";
+        public static final String UserObjectId = "userObjectId";
+        public static final String CommodityState = "commodityState";
+    }
+
+    /**
+     *
+     */
+    public static final class HistoryInfoProperties {
+        public static final String UserObjectId = "userObjectid";
+        public static final String CommodityCategory1 = "commodityCategory1";//商品大类
+        public static final String CommodityObjectId = "commodityObjectid";
+        public static final String CommodityTitle = "commodityTitle";//商品标题
+        public static final String UserPhoneNumber = "userPhoneNumber";//当前用户的手机号
+        public static final String SellerPhoneNumber = "sellerPhoneNumber";//商品卖家的手机号
+    }
+
 
 }
 

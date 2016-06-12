@@ -118,6 +118,7 @@ public class AbScrollView extends ScrollView {
 
     /**
      * 是否需要开启动画
+     *
      * @return
      */
     public boolean isNeedAnimation() {
@@ -126,6 +127,7 @@ public class AbScrollView extends ScrollView {
 
     /**
      * 是否需要移动布局
+     *
      * @return
      */
     public boolean isNeedMove() {
@@ -139,6 +141,7 @@ public class AbScrollView extends ScrollView {
 
     /**
      * 检查是否处于默认位置
+     *
      * @param position
      * @return
      */

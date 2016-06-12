@@ -10,13 +10,19 @@ import android.util.Log;
 import com.marvin.lop.bean.AuthenRequestList;
 import com.marvin.lop.bean.BeanConstants;
 import com.marvin.lop.bean.CertifiedUsers;
+import com.marvin.lop.bean.CommodityInfo;
+import com.marvin.lop.bean.HistoryInfo;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.database.AuthenRequestDataBaseHelper;
+import com.marvin.lop.database.GetCommodityInfoDataBaseHelper;
 import com.marvin.lop.database.GetUserCertifiedInfoDataBaseHelper;
+import com.marvin.lop.ui.linstener.OnDataLoadSuccessLinstener;
+import com.marvin.lop.zxing.decoding.Intents;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
@@ -168,7 +174,7 @@ public class QueryFromServer {
                 Cursor cursor = db.rawQuery("select * from " + Constants.AuthenRequestDataBaseConfig.TableName, null);
                 if (cursor.getCount() < 1) {
                     Log.i(TAG, "数据库为空");
-                    for (CertifiedUsers user :list) {
+                    for (CertifiedUsers user : list) {
                         Log.i(TAG, "数据库为空，直接写入数据");
                         Log.i(TAG, "QueryData获取用户数据的大小:" + list.size());
                         values.put(Constants.AuthenRequestDataBaseConfig.PhoneNumber, user.getUserPhoneNumber());
@@ -454,7 +460,8 @@ public class QueryFromServer {
 
     /**
      * 根据传入的ObjectID来获取当前登录用户的认证信息并保存在数据库中
-     * @param context 上下文
+     *
+     * @param context  上下文
      * @param objectId 用户ID
      */
     public void getUserCertifiedInfo(final Context context, String objectId) {
@@ -517,4 +524,207 @@ public class QueryFromServer {
             }
         });
     }
+
+
+    boolean flag = false;
+
+    /**
+     * 获取商品状态为false的所有商品信息并保存在数据库中
+     *
+     * @param context
+     */
+    public boolean queryCommodityInfoFromServer(final Context context) {
+        BmobQuery<CommodityInfo> commodityInfo = new BmobQuery<>();
+        commodityInfo.addWhereEqualTo(BeanConstants.CommodityInfoProperties.CommodityState, false);
+        commodityInfo.setLimit(50);
+        Log.i(TAG, "queryCommodityInfo==========");
+        commodityInfo.findObjects(context, new FindListener<CommodityInfo>() {
+            @Override
+            public void onSuccess(List<CommodityInfo> list) {
+                Log.i(TAG, "共获取" + list.size() + "条商品信息");
+                GetCommodityInfoDataBaseHelper dbHelper = new GetCommodityInfoDataBaseHelper(context,
+                        Constants.CommodityInfoDataConfig.DataBaseName, null, 1);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                final ContentValues values = new ContentValues();
+                Cursor cursor = db.rawQuery("select * from " + Constants.CommodityInfoDataConfig.TableName, null);
+                if (cursor.getCount() < 1) {
+                    Log.i(TAG, "数据库为空");
+                    for (CommodityInfo commodity : list) {
+                        Log.i(TAG, "数据库为空，直接写入数据");
+                        Log.i(TAG, "QueryData获取用户数据的大小:" + list.size());
+                        values.put(Constants.CommodityInfoDataConfig.ObjectId, commodity.getObjectId());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPrice, commodity.getCommodityPrice());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityTitle, commodity.getCommodityTitle());
+                        values.put(Constants.CommodityInfoDataConfig.UserObjectId, commodity.getUserObjectId());
+                        values.put(Constants.CommodityInfoDataConfig.UserPhoneNumber, commodity.getUserPhoneNumber());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityCategory1, commodity.getCommodityCategory1());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityCategory2, commodity.getCommodityCategory2());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityDescribe, commodity.getCommodityDescribe());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityOriPrice, commodity.getCommodityOriPrice());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPicPath1, commodity.getCommodityPicPath1());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPicPath2, commodity.getCommodityPicPath2());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPicPath3, commodity.getCommodityPicPath3());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPicPath4, commodity.getCommodityPicPath4());
+                        values.put(Constants.CommodityInfoDataConfig.CommodityPicPath5, commodity.getCommodityPicPath5());
+                        values.put(Constants.CommodityInfoDataConfig.CreateAt, commodity.getCreatedAt());
+                        db.insert(Constants.CommodityInfoDataConfig.TableName, null, values);// 插入数据
+                        values.clear();//清空
+                    }
+                } else {
+                    //如果数据库不为空，就要把服务器请求来的数据跟数据库中的数据的ObjectId进行比较，重复就不再添加，不存在就添加
+                    Log.i(TAG, "数据库不为空");
+                    for (CommodityInfo commodity1 : list) {
+                        Log.i(TAG, "QueryData获取用户数据的大小:" + list.size());
+                        String objectid = commodity1.getObjectId();
+                        Cursor c = db.rawQuery("select " + Constants.CommodityInfoDataConfig.ObjectId +
+                                " from " + Constants.CommodityInfoDataConfig.TableName + " where "
+                                + Constants.CommodityInfoDataConfig.ObjectId + "='" + objectid + "'", null);
+                        if (c.getCount() < 1) {
+                            Log.i(TAG, "该数据不存在数据库中，可以插入");
+                            values.put(Constants.CommodityInfoDataConfig.ObjectId, commodity1.getObjectId());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPrice, commodity1.getCommodityPrice());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityTitle, commodity1.getCommodityTitle());
+                            values.put(Constants.CommodityInfoDataConfig.UserObjectId, commodity1.getUserObjectId());
+                            values.put(Constants.CommodityInfoDataConfig.UserPhoneNumber, commodity1.getUserPhoneNumber());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityCategory1, commodity1.getCommodityCategory1());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityCategory2, commodity1.getCommodityCategory2());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityDescribe, commodity1.getCommodityDescribe());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityOriPrice, commodity1.getCommodityOriPrice());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPicPath1, commodity1.getCommodityPicPath1());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPicPath2, commodity1.getCommodityPicPath2());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPicPath3, commodity1.getCommodityPicPath3());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPicPath4, commodity1.getCommodityPicPath4());
+                            values.put(Constants.CommodityInfoDataConfig.CommodityPicPath5, commodity1.getCommodityPicPath5());
+                            values.put(Constants.CommodityInfoDataConfig.CreateAt, commodity1.getCreatedAt());
+                            db.insert(Constants.CommodityInfoDataConfig.TableName, null, values);// 插入数据
+                            values.clear();//清空
+                        } else {
+                            Log.i(TAG, "该数据已经存在数据库中，不能插入");
+                        }
+                        c.close();
+                    }
+                }
+                cursor.close();
+                db.close();
+                dbHelper.close();
+                // 调用回调方法，通知页面数据库的数据已经保存完成，可以在页面上显示了
+                QueryFromServer.this.flag = true;
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+        return QueryFromServer.this.flag;
+    }
+
+    public void pushCommodityInfoFromServer(final Context context, final String objectid) {
+        BmobQuery<HistoryInfo> query = new BmobQuery<>();
+        // 先去查询用户的最后一次购买历史记录，如果有记录，就获取最后一次历史记录中的商品大类，根据商品大类查询相应的商品，
+        // 如果查询不到相应的商品，就推荐最新发布的商品信息
+        // 如果用户没有历史购买记录，就直接推荐最新发布的商品信息
+        query.addWhereEqualTo(BeanConstants.HistoryInfoProperties.UserObjectId, objectid);
+        query.findObjects(context, new FindListener<HistoryInfo>() {
+            @Override
+            public void onSuccess(List<HistoryInfo> list) {
+                if (list.size() > 0) {
+                    // 该用户有历史记录
+                    // 查询他购买记录中的商品大类
+                    String category = list.get(0).getCommodityCategory1();
+                    new QueryFromServer().queryUserLatestHistoryInfoFromServer(context, objectid, category);
+                    Log.i(TAG, "该用户有历史记录，查询他最后一次购买记录中的商品大类");
+                } else {
+                    // 该用户没有历史记录，直接推荐最新的商品
+                    new QueryFromServer().pushLatestCommodityInfoFromServer(context, objectid);
+                    Log.i(TAG, "该用户没有历史记录，直接推荐最新的商品");
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                // 该用户没有历史记录，直接推荐最新的商品,不存在该记录表，直接推荐最新商品
+                new QueryFromServer().pushLatestCommodityInfoFromServer(context, objectid);
+                Log.i(TAG, "该用户没有历史记录，直接推荐最新的商品");
+            }
+        });
+    }
+
+    public void pushLatestCommodityInfoFromServer(final Context context, String objectid) {
+        BmobQuery<CommodityInfo> query = new BmobQuery<>();
+        query.addWhereEqualTo(BeanConstants.CommodityInfoProperties.CommodityState, false);
+        query.findObjects(context, new FindListener<CommodityInfo>() {
+            @Override
+            public void onSuccess(List<CommodityInfo> list) {
+                if (list.size() > 0) {
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(
+                            Constants.PushInfoSharePreferencesConfig.FileName, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.CommodityTitle, list.get(0).getCommodityTitle());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.ComodityDescribe, list.get(0).getCommodityDescribe());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath1, list.get(0).getCommodityPicPath1());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath2, list.get(0).getCommodityPicPath2());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath3, list.get(0).getCommodityPicPath3());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath4, list.get(0).getCommodityPicPath4());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath5, list.get(0).getCommodityPicPath5());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityOriPrice, list.get(0).getCommodityOriPrice());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPrice, list.get(0).getCommodityPrice());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityCategory1, list.get(0).getCommodityCategory1());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityCategory2, list.get(0).getCommodityCategory2());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.userObjectId, list.get(0).getObjectId());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.userPhoneNumber, list.get(0).getUserPhoneNumber());
+                    editor.putBoolean(Constants.PushInfoSharePreferencesConfig.commodityState, list.get(0).getCommodityState());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.objectid, list.get(0).getObjectId());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.createAt, list.get(0).getCreatedAt());
+                    editor.commit();
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
+    public void queryUserLatestHistoryInfoFromServer(final Context context, final String objectid, String category) {
+        BmobQuery<CommodityInfo> query = new BmobQuery<>();
+        query.addWhereEqualTo(BeanConstants.CommodityInfoProperties.CommodityCategory1, category);
+        query.findObjects(context, new FindListener<CommodityInfo>() {
+            @Override
+            public void onSuccess(List<CommodityInfo> list) {
+                if (list.size() > 0) {
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(
+                            Constants.PushInfoSharePreferencesConfig.FileName, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.CommodityTitle, list.get(0).getCommodityTitle());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.ComodityDescribe, list.get(0).getCommodityDescribe());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath1, list.get(0).getCommodityPicPath1());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath2, list.get(0).getCommodityPicPath2());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath3, list.get(0).getCommodityPicPath3());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath4, list.get(0).getCommodityPicPath4());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPicPath5, list.get(0).getCommodityPicPath5());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityOriPrice, list.get(0).getCommodityOriPrice());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityPrice, list.get(0).getCommodityPrice());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityCategory1, list.get(0).getCommodityCategory1());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.commodityCategory2, list.get(0).getCommodityCategory2());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.userObjectId, list.get(0).getUserObjectId());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.userPhoneNumber, list.get(0).getUserPhoneNumber());
+                    editor.putBoolean(Constants.PushInfoSharePreferencesConfig.commodityState, list.get(0).getCommodityState());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.objectid, list.get(0).getObjectId());
+                    editor.putString(Constants.PushInfoSharePreferencesConfig.createAt, list.get(0).getCreatedAt());
+                    editor.commit();
+                } else {
+                    new QueryFromServer().pushLatestCommodityInfoFromServer(context, objectid);
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
+
 }

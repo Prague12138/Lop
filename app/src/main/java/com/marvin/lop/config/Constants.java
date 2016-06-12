@@ -450,6 +450,14 @@ public final class Constants {
          * 从个人信息中心界面跳转到求租信息发布界面
          */
         public static final int PersonalCenter2Borrow = 0x2016;
+        /**
+         * 从首页跳转到物品详情页面
+         */
+        public static final int Index2ProductDetails = 0x2017;
+        /**
+         * 从搜索界面到物品详情界面
+         */
+        public static final int Search2ProductDetails = 0x2018;
 
     }
 
@@ -562,6 +570,11 @@ public final class Constants {
          * 发布求租信息成功
          */
         public static final int BorrowSuccess = 0x301A;
+        /**
+         * 从物品详情页面返回首页
+         */
+        public static final int Product2Index = 0x301B;
+
     }
 
     /**
@@ -630,11 +643,11 @@ public final class Constants {
      */
     public static final class UserCertifiedInfoDataConfig {
         /**
-         *  数据库名称
+         * 数据库名称
          */
         public static final String DataBaseName = "UserCertifiedInfoDataBase.db";
         /**
-         *  表名
+         * 表名
          */
         public static final String TableName = "CertifiedInfoData";
         /**
@@ -673,6 +686,92 @@ public final class Constants {
          * 字段--ObjectId
          */
         public static final String ObjectID = "userObjectId";
+    }
+
+    /**
+     * 商品信息数据库
+     */
+    public static final class CommodityInfoDataConfig {
+        public static final String DataBaseName = "CommodityInfoDataBase.db";
+        public static final String TableName = "CommodityInfoData";
+        public static final String ObjectId = "ObjectId";
+        public static final String CommodityPrice = "CommodityPrice";
+        public static final String CommodityTitle = "CommodityTitle";
+        public static final String UserObjectId = "UserObjectId";
+        public static final String CommodityCategory1 = "CommodityCategory1";
+        public static final String CommodityCategory2 = "CommodityCategory2";
+        public static final String CommodityDescribe = "CommodityDescribe";
+        public static final String CommodityOriPrice = "CommodityOriPrice";
+        public static final String CommodityPicPath1 = "CommodityPicPath1";
+        public static final String CommodityPicPath2 = "CommodityPicPath2";
+        public static final String CommodityPicPath3 = "CommodityPicPath3";
+        public static final String CommodityPicPath4 = "CommodityPicPath4";
+        public static final String CommodityPicPath5 = "CommodityPicPath5";
+        public static final String CreateAt = "CreateAt";
+        public static final String UserPhoneNumber = "UserPhoneNumber";
+    }
+
+    /**
+     * 查询结果数据库
+     */
+    public static final class SearchResultDataConfig {
+        public static final String DataBaseName = "SearchResultDataBase.db";
+        public static final String TableName = "SearchResultData";
+        public static final String ObjectId = "ObjectId";
+        public static final String CommodityPrice = "CommodityPrice";
+        public static final String CommodityTitle = "CommodityTitle";
+        public static final String UserObjectId = "UserObjectId";
+        public static final String CommodityCategory1 = "CommodityCategory1";
+        public static final String CommodityCategory2 = "CommodityCategory2";
+        public static final String CommodityDescribe = "CommodityDescribe";
+        public static final String CommodityOriPrice = "CommodityOriPrice";
+        public static final String CommodityPicPath1 = "CommodityPicPath1";
+        public static final String CommodityPicPath2 = "CommodityPicPath2";
+        public static final String CommodityPicPath3 = "CommodityPicPath3";
+        public static final String CommodityPicPath4 = "CommodityPicPath4";
+        public static final String CommodityPicPath5 = "CommodityPicPath5";
+        public static final String CreateAt = "CreateAt";
+        public static final String UserPhoneNumber = "UserPhoneNumber";
+    }
+
+    /***
+     * 历史记录数据表
+     */
+    public static final class HistoryInfoDataConfig {
+        public static final String DataBaseName = "HistoryInfoDataBase.db";
+        public static final String TableName = "HistoryInfoData";
+        public static final String ObjectId = "ObjectId";
+        public static final String UserObjectid = "UserObjectid";
+        public static final String CommodityCategory1 = "CommodityCategory1";
+        public static final String CommodityObjectid = "CommodityObjectid";
+        public static final String CommodityTitle = "commodityTitle";
+        public static final String UserPhoneNumber = "UserPhoneNumber";
+        public static final String SellerPhoneNumber = "sellerPhoneNumber";
+        public static final String CreateAt = "CreateAt";
+    }
+
+    /**
+     * 推送商品信息
+     */
+    public static final class PushInfoSharePreferencesConfig {
+        public static final String FileName = "marvin_lop_pushInfo";
+        public static final String CommodityTitle = "CommodityTitle";
+        public static final String ComodityDescribe = "ComodityDescribe";
+        public static final String commodityPicPath1 = "commodityPicPath1";
+        public static final String commodityPicPath2 = "commodityPicPath2";
+        public static final String commodityPicPath3 = "commodityPicPath3";
+        public static final String commodityPicPath4 = "commodityPicPath4";
+        public static final String commodityPicPath5 = "commodityPicPath5";
+        public static final String commodityOriPrice = "commodityOriPrice";
+        public static final String commodityPrice = "commodityPrice";
+        public static final String commodityCategory1 = "commodityCategory1";
+        public static final String commodityCategory2 = "commodityCategory2";
+        public static final String userObjectId = "userObjectId";
+        public static final String userPhoneNumber = "userPhoneNumber";
+        public static final String commodityState = "commodityState";
+        public static final String objectid = "objectid";
+        public static final String createAt = "createAt";
+
     }
 
 

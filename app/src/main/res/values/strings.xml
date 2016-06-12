@@ -22,25 +22,15 @@
 
 
     <!-- 首页 -->
-    <string name="index_limit">还剩</string>
-    <string name="index_hour">时</string>
-    <string name="index_min">分</string>
-    <string name="index_seconds">秒</string>
-    <string name="index_price">最新价:</string>
-    <string name="index_raw_price">原价:</string>
-    <string name="index_slogan">疯狂购物</string>
-    <string name="index_promotion">促销卖场</string>
-    <string name="index_recharge">充值</string>
-    <string name="index_group_buy">团购</string>
-    <string name="index_lottery">彩票</string>
-    <string name="index_shake">摇一摇</string>
     <string name="index_order">订单状态</string>
     <string name="index_history">浏览历史</string>
     <string name="index_collect">我的关注</string>
     <string name="index_life_journey">生活娱乐</string>
-    <string name="index_notify_info">向左滑，更多优惠等你抢</string>
-    <string name="index_shopping_jinqiufengbao">物品浏览</string>
-    <string name="index_shopping_remenyouhui">最新热门</string>
+    <string name="index_commodityinfo_browse_tv">二手物品浏览</string>
+    <string name="index_rentinfo_browse_tv">出租物品浏览</string>
+    <string name="index_buying">求购信息</string>
+    <string name="index_rent">出租信息</string>
+    <string name="index_borrow">求租信息</string>
     <!-- 首页 -->
 
     <!-- 商品分类 -->
@@ -51,7 +41,7 @@
     <string name="scan_title">扫一扫</string>
 
     <!--搜索界面-->
-    <string name="search_info">暂无搜索历史</string>
+    <string name="search_info">暂无搜索结果</string>
 
     <!-- 个人中心 -->
     <string name="personal_title">我的购物车</string>
@@ -268,5 +258,38 @@
     <string name="borrow_title">我要求租</string>
     <string name="borrow_btn_msg">确认求租</string>
 
+    <!--列表  商品信息缩略-->
+    <string name="list_commodityinfo_index_college">来自:</string>
+    <string name="list_commodityinfo_index_category">类别:</string>
+
+    <!--商品详情-->
+    <string name="product_details_top_title_msg">物品详情</string>
+    <string name="buy_btn_msg">我想要</string>
+
+    <!--交易界面-->
+    <string name="bargain_title">正在交易</string>
+    <string name="bargain_text1">系统提示：</string>
+    <string name="bargain_text2">请及时与卖家进行电话联系！</string>
+    <string name="bargain_phone_msg">联系电话：</string>
+    <string name="bargain_success">交易成功</string>
+    <string name="bargain_cancel">交易取消</string>
+    
+    <!--用户评价界面-->
+    <string name="credit_title">交易评价</string>
+    <string name="credit_content_hint">请输入您的评价内容</string>
+    <string name="credit_users_ratingbar">卖家评分</string>
+    <string name="credit_commodity_ratingbar">商品评分</string>
+    <string name="credit_commoit">提交评价</string>
+
+    <!--聊天界面-->
+    <string name="chat_top_title_msg">会话</string>
+
+    <!--IMBmob-->
+    <string name="action_settings">Settings</string>
+    <string name="voice_up_tips">手指上滑,取消发送</string>
+    <string name="longclick_speak">长按说话</string>
+    <string name="camera">拍摄</string>
+    <string name="location">位置</string>
+    <string name="picture">照片</string>
 
 </resources>

@@ -25,7 +25,17 @@ public class CommodityInfo extends BmobObject {
     private String commodityCategory1;
     private String commodityCategory2;
     private String userObjectId;
+    private String userPhoneNumber;
     private Boolean commodityState;
+
+    public String getUserPhoneNumber() {
+        return userPhoneNumber;
+    }
+
+
+    public void setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+    }
 
     public String getCommodityTitle() {
         return commodityTitle;

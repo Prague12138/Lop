@@ -25,8 +25,11 @@ import com.marvin.lop.config.Constants;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.CreateNewCommodity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -74,6 +77,12 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
     private String picAbsPath3;
     private String picAbsPath4;
     private String picAbsPath5;
+    private String path1;
+    private String path2;
+    private String path3;
+    private String path4;
+    private String path5;
+
 
     private Bitmap defaultBitmap;//默认显示的图片
 
@@ -476,12 +485,22 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                                         itemDes = mDes.getText().toString();
                                         itemPrice = mPrice.getText().toString();
                                         itemOriPrice = mOriPrice.getText().toString();
+                                        Log.i("picPath01 : ", picPath01);
+                                        Log.i("path1 : ", "file://" + path1);
+                                        Log.i("picPath02 : ", picPath02);
+                                        Log.i("path2 : ", "file://" + path2);
+                                        Log.i("picPath03 : ", picPath03);
+                                        Log.i("path3 : ", "file://" + path3);
+                                        Log.i("picPath04 : ", picPath04);
+                                        Log.i("path4 : ", "file://" + path4);
+                                        Log.i("picPath05 : ", picPath05);
+                                        Log.i("path5 : ", "file://" + path5);
                                         final String[] filePaths = new String[5];
-                                        filePaths[0] = picPath01;
-                                        filePaths[1] = picPath02;
-                                        filePaths[2] = picPath03;
-                                        filePaths[3] = picPath04;
-                                        filePaths[4] = picPath05;
+                                        filePaths[0] = path1;
+                                        filePaths[1] = path2;
+                                        filePaths[2] = path3;
+                                        filePaths[3] = path4;
+                                        filePaths[4] = path5;
                                         BmobFile.uploadBatch(PublishActivity.this, filePaths,
                                                 new UploadBatchListener() {
                                                     @Override
@@ -504,9 +523,10 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                                                             CreateNewCommodity cnc = new CreateNewCommodity();
                                                             // commodityState false是未出售，
                                                             String userObjectId = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null);
+                                                            String userPhone = sharedPreferences.getString(Constants.SharedPreferencesConfig.PHONE_NUMBER, null);
                                                             commodityInfo = cnc.createCommodityInfoInServer(itemTitle, itemDes, picAbsPath1, picAbsPath2,
                                                                     picAbsPath3, picAbsPath4, picAbsPath5, itemOriPrice, itemPrice, categoryName1, categoryName2,
-                                                                    userObjectId, false);
+                                                                    userObjectId, userPhone, false);
                                                             commodityInfo.save(PublishActivity.this, new SaveListener() {
                                                                 @Override
                                                                 public void onSuccess() {
@@ -600,7 +620,12 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                     try {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;//宽高为原来的四分之一
+
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri01), null, options);
+                        // 压缩图片
+                        bitmap = compressImage(bitmap, 80);
+                        path1 = saveBitmap(bitmap, "image01.jpg");//将压缩后的图片保存在文件中
+                        Log.i("图片路径===", path1);
                         img01.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
@@ -636,8 +661,14 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;//宽高为原来的四分之一
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri02), null, options);
+                        // 压缩图片
+                        bitmap = compressImage(bitmap, 80);
+                        path2 = saveBitmap(bitmap, "image02.jpg");//将压缩后的图片保存在文件中
+                        Log.i("图片路径===", path2);
                         img02.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -668,8 +699,14 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;//宽高为原来的四分之一
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri03), null, options);
+                        // 压缩图片
+                        bitmap = compressImage(bitmap, 80);
+                        path3 = saveBitmap(bitmap, "image03.jpg");//将压缩后的图片保存在文件中
+                        Log.i("图片路径===", path3);
                         img03.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -700,8 +737,14 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;//宽高为原来的四分之一
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri04), null, options);
+                        // 压缩图片
+                        bitmap = compressImage(bitmap, 80);
+                        path4 = saveBitmap(bitmap, "image04.jpg");//将压缩后的图片保存在文件中
+                        Log.i("图片路径===", path4);
                         img04.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -732,8 +775,14 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inSampleSize = 4;//宽高为原来的四分之一
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri05), null, options);
+                        // 压缩图片
+                        bitmap = compressImage(bitmap, 80);
+                        path5 = saveBitmap(bitmap, "image05.jpg");//将压缩后的图片保存在文件中
+                        Log.i("图片路径===", path5);
                         img05.setImageBitmap(bitmap);
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
@@ -761,4 +810,88 @@ public class PublishActivity extends BaseActivity implements View.OnClickListene
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * 将图片image压缩成大小为 size的图片（size表示图片大小，单位是KB）
+     *
+     * @param image 图片资源
+     * @param size  图片大小
+     * @return Bitmap
+     */
+    private Bitmap compressImage(Bitmap image, int size) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        image.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        int options = 50;
+        // 循环判断如果压缩后图片是否大于80kb,大于继续压缩
+        while (baos.toByteArray().length / 1024 > size) {
+            Log.i("====图片压缩=", baos.toByteArray().length / 1024 + "");
+            // 重置baos即清空baos
+            baos.reset();
+            // 每次都减少5
+            options -= 5;
+            // 这里压缩options%，把压缩后的数据存放到baos中
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);
+        }
+        // 把压缩后的数据baos存放到ByteArrayInputStream中
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        // 把ByteArrayInputStream数据生成图片
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        return bitmap;
+    }
+
+    public String saveBitmap(Bitmap bitmap, String fileName) throws IOException {
+        String path = Environment.getExternalStorageDirectory() + "/" + fileName;
+        File file = new File(path);
+        try {
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileOutputStream out;
+        try {
+            out = new FileOutputStream(file);
+            if (bitmap.compress(Bitmap.CompressFormat.PNG, 70, out)) {
+                out.flush();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferences = null;
+        commodityInfo = null;
+        imageUri01 = null;
+        imageUri02 = null;
+        imageUri03 = null;
+        imageUri04 = null;
+        imageUri05 = null;
+        defaultBitmap = null;
+        picAbsPath1 = null;
+        picAbsPath2 = null;
+        picAbsPath3 = null;
+        picAbsPath4 = null;
+        picAbsPath5 = null;
+        picPath01 = null;
+        picPath02 = null;
+        picPath03 = null;
+        picPath04 = null;
+        picPath05 = null;
+        img01 = null;
+        img02 = null;
+        img03 = null;
+        img04 = null;
+        img05 = null;
+        mBackbtn = null;
+        mCategoryClick = null;
+    }
 }

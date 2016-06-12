@@ -1,16 +1,26 @@
 package com.marvin.lop.ui;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.marvin.lop.R;
 import com.marvin.lop.config.Constants;
+import com.marvin.lop.receiver.IMMessageHandler;
+import com.marvin.lop.service.PushCommodityInfoService;
 import com.marvin.lop.ui.base.BaseActivity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
+import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
 
 /**
@@ -25,7 +35,7 @@ public class SplashActivity extends BaseActivity{
 
     private ImageView mSplashItem_iv = null;
 
-//    AppManager am;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void findViewById() {
@@ -37,11 +47,28 @@ public class SplashActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        am = AppManager.getInstance();
-//        am.addActivity(this);
-
         // 初始化Bmob SDK
         Bmob.initialize(this, Constants.BmobConfig.ApplicationID);
+
+        //只有主进程运行的时候才需要初始化
+        if (getApplicationInfo().packageName.equals(getMyProcessName())){
+            //NewIM初始化
+            BmobIM.init(this);
+            //注册消息接收器
+            BmobIM.registerDefaultMessageHandler(new IMMessageHandler(this));
+        }
+
+        sharedPreferences = this.getSharedPreferences(Constants.SharedPreferencesConfig.FILENAME, MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            // 根据用户objectid获取推荐的商品信息
+            String objectid = sharedPreferences.getString(Constants.SharedPreferencesConfig.USER_OBJECT_ID, null);
+            if (objectid != null) {
+                // 执行查询操作
+                Intent serviceIntent = new Intent(SplashActivity.this, PushCommodityInfoService.class);
+                Log.i(TAG, "启动商品推荐服务...");
+                startService(serviceIntent);
+            }
+        }
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -54,10 +81,26 @@ public class SplashActivity extends BaseActivity{
         initView();
     }
 
+    /**
+     * 获取当前运行的进程名
+     * @return
+     */
+    public static String getMyProcessName() {
+        try {
+            File file = new File("/proc/" + android.os.Process.myPid() + "/" + "cmdline");
+            BufferedReader mBufferedReader = new BufferedReader(new FileReader(file));
+            String processName = mBufferedReader.readLine().trim();
+            mBufferedReader.close();
+            return processName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        am.killActivity(this);
     }
 
     @Override

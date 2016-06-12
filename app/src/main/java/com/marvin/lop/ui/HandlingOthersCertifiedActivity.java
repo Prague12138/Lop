@@ -99,9 +99,7 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
                     userClass_tv.setText(cursor.getString(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.Class)));
                     // 根据数据库中存储的学院编号，找到对应的学院名称，将学院名称显示在界面上
                     int collegenum = cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.College));
-                    Log.i(TAG, "collegenum = " + collegenum);
                     String collegename = CodeMatcher.CollegeCodeMatcher(collegenum);
-                    Log.i(TAG, "collegename = " + collegename);
                     userCollege_tv.setText(collegename);
                     // 根据数据库中存储的身份编号，找到对应的身份名称，将身份名称显示在界面上
                     int permissionnum = cursor.getInt(cursor.getColumnIndex(Constants.AuthenRequestDataBaseConfig.Permission));
@@ -160,9 +158,15 @@ public class HandlingOthersCertifiedActivity extends BaseActivity implements Vie
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        cursor.close();
-        database.close();
-        openHelper.close();
+        if (cursor != null) {
+            cursor.close();
+        }
+        if (database != null) {
+            database.close();
+        }
+        if (openHelper != null) {
+            openHelper.close();
+        }
     }
 
 }

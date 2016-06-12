@@ -83,7 +83,4 @@ public class LoadingAuthenRequestTask extends AsyncTask<Void, Void, Boolean> {
         Toast.makeText(context, "成功请求数据", Toast.LENGTH_SHORT).show();
         onDataLoadSuccessLinstener.onSuccess(aBoolean);
     }
-
-
-
 }

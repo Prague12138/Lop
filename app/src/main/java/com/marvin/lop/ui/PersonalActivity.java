@@ -51,7 +51,7 @@ public class PersonalActivity extends BaseActivity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal);
 
-        DisPlay("Oncreate**");
+//        DisPlay("Oncreate**");
 
         sharedPreferences = this.getSharedPreferences(Constants.SharedPreferencesConfig.FILENAME, MODE_PRIVATE);
         editor = sharedPreferences.edit();

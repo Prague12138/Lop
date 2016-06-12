@@ -90,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_text_size" />
             </LinearLayout>
         </LinearLayout>
@@ -104,13 +105,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/android_layout_bg"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            >
 
             <TextView
                 style="@style/PersonalCenterText"
-                android:text="@string/personal_order_center" />
+                android:text="@string/personal_order_center"
+                android:visibility="gone"
+                />
 
-            <LinearLayout style="@style/PersonalMainLayoutStyle">
+            <LinearLayout style="@style/PersonalMainLayoutStyle"
+                android:visibility="gone"
+                >
 
                 <RelativeLayout style="@style/PersonalTopStyle">
 
@@ -172,9 +179,13 @@
 
             <TextView
                 style="@style/PersonalCenterText"
-                android:text="@string/personal_account_center" />
+                android:text="@string/personal_account_center"
+                android:visibility="gone"
+                />
 
-            <LinearLayout style="@style/PersonalMainLayoutStyle">
+            <LinearLayout style="@style/PersonalMainLayoutStyle"
+                android:visibility="gone"
+                >
 
                 <RelativeLayout style="@style/PersonalTopStyle">
 
@@ -281,7 +292,7 @@
                 android:layout_marginBottom="14dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="200dp"
                 android:background="@drawable/android_title_bg"
                 android:gravity="center"
                 android:padding="4dp"
@@ -289,9 +300,5 @@
                 android:textColor="#fff"
                 android:textSize="18sp" />
         </LinearLayout>
-
-
     </ScrollView>
-
-
 </LinearLayout>

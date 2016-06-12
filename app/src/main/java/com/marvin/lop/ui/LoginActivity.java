@@ -17,11 +17,15 @@ import com.marvin.lop.bean.BeanConstants;
 import com.marvin.lop.bean.CertifiedUsers;
 import com.marvin.lop.config.Constants;
 import com.marvin.lop.service.HandleCertifiedService;
+import com.marvin.lop.service.PushCommodityInfoService;
 import com.marvin.lop.ui.base.BaseActivity;
 import com.marvin.lop.utils.MD5;
 import com.marvin.lop.utils.QueryFromServer;
 
+import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 
 /**
@@ -102,7 +106,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                                 new FindListener<CertifiedUsers>() {
                                     @Override
                                     public void onSuccess(List<CertifiedUsers> list) {
-                                       Log.i(TAG, "共返回" + list.size() + "条数据");
+                                        Log.i(TAG, "共返回" + list.size() + "条数据");
                                         if (list.size() > 0) { // 返回数据条数大于1，说明有这条数据
                                             password = list.get(0).getUserPassword();
                                             objectId = list.get(0).getObjectId();
@@ -127,6 +131,27 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
                                                 Intent serviceIntent = new Intent(LoginActivity.this, HandleCertifiedService.class);
                                                 Log.i(TAG, "启动查询服务...");
                                                 startService(serviceIntent);
+
+                                                // 根据用户objectid获取推荐的商品信息
+                                                String objectid = sharedPreferences.getString(objectId, null);
+                                                if (objectid != null) {
+                                                    // 执行查询操作
+                                                    Intent serviceIntent1 = new Intent(LoginActivity.this, PushCommodityInfoService.class);
+                                                    Log.i(TAG, "启动商品推荐服务...");
+                                                    startService(serviceIntent1);
+                                                }
+
+                                                // 连接聊天服务器
+                                                BmobIM.connect(objectId, new ConnectListener() {
+                                                    @Override
+                                                    public void done(String s, BmobException e) {
+                                                        if (e == null) {
+                                                            Log.i(TAG, "连接服务器成功!");
+                                                        } else {
+                                                            Log.i(TAG, e.getErrorCode() + "----" + e.getMessage());
+                                                        }
+                                                    }
+                                                });
 
                                                 setResult(Constants.IntentResultCode.LOGIN_SUCCESS);
                                                 LoginActivity.this.finish();
@@ -160,4 +185,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        objectId = null;
+        mBackButton = null;
+        mLoginUserName = null;
+        mLoginUserPassword = null;
+        loginBtn = null;
+        register = null;
+        mIntent = null;
+        password = null;
+        sharedPreferences = null;
+        editor = null;
+    }
 }

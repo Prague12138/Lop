@@ -11,7 +11,6 @@ import com.marvin.lop.bean.CommodityInfo;
 public class CreateNewCommodity {
 
     private CommodityInfo commodityInfo;
-
     public CommodityInfo createCommodityInfoInServer(String commodityTitle,
                                                      String commodityDescribe,
                                                      String commodityPicPath1,
@@ -24,6 +23,7 @@ public class CreateNewCommodity {
                                                      String commodityCategory1,
                                                      String commodityCategory2,
                                                      String userObjectId,
+                                                     String userPhoneNumber,
                                                      Boolean commodityState) {
         commodityInfo = new CommodityInfo();
         commodityInfo.setCommodityTitle(commodityTitle);
@@ -38,6 +38,7 @@ public class CreateNewCommodity {
         commodityInfo.setCommodityCategory1(commodityCategory1);
         commodityInfo.setCommodityCategory2(commodityCategory2);
         commodityInfo.setUserObjectId(userObjectId);
+        commodityInfo.setUserPhoneNumber(userPhoneNumber);
         commodityInfo.setCommodityState(commodityState);
 
         return commodityInfo;
